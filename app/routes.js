@@ -33,7 +33,29 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
+    },
+    {
+      path: '/invoices',
+      name: 'invoicePage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+        import('containers/InvoicePage/reducer'),
+        import ('containers/InvoicePage/sagas'),
+        import('containers/InvoicePage'),
+      ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer ('invoice', reducer.default );
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
