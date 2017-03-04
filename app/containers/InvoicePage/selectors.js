@@ -15,7 +15,7 @@ const selectFilterInvoices = () => createSelector(
       return invoiceState.get('list');
     }
     return invoiceState.get('list').filter((i) => i.name.toLowerCase().indexOf(filterLc) !== -1 ||
-    String(i.active).toLowerCase().indexOf(filterLc) !== -1);
+    String(i.active).toLowerCase().indexOf(filterLc) !== -1 || i.client.name.toLowerCase().indexOf(filterLc) !== -1);
   },
 );
 

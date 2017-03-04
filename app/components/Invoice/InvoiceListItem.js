@@ -22,7 +22,7 @@ let InvoiceListItem = ({item, onCharge}) => {
     <RaisedButton label={item.status} disabled={true} primary={true}/>
   return (<TableRow key={item._id} id={item._id}>
       <TableRowColumn>{item.client.name}</TableRowColumn>
-      <TableRowColumn><Link to={"/invoices/edit/" + item._id}>{item.name}</Link></TableRowColumn>
+      <TableRowColumn><Link to={"/invoices/" + item._id +'/edit'}>{item.name}</Link></TableRowColumn>
       <TableRowColumn>{item.number}</TableRowColumn>
       <TableRowColumn>${item.total}</TableRowColumn>
       <TableRowColumn>${ item.retention ? calculateRetention(item.total) : item.total }</TableRowColumn>
