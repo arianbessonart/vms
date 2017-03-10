@@ -8,7 +8,7 @@ import { TextField } from 'material-ui';
 
 import InvoiceList from 'components/Invoice/InvoiceList';
 import { loadInvoices, filterInvoices } from './actions';
-import { selectFilterInvoices, selectFilterInput } from './selectors';
+import { selectFilterInvoices, selectFilterInput } from '../App/selectors';
 
 class InvoicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 

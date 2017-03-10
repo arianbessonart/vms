@@ -1,3 +1,59 @@
+import { createSelector } from 'reselect';
+import { Iterable } from 'immutable';
+
+const selectInvoice = (state) => state.get('invoice');
+const selectClient = (state) => state.get('client');
+
+const selectInvoices = () => createSelector(
+  selectInvoice,
+  (invoiceState) => invoiceState.get('list')
+);
+
+const selectFilterInvoices = () => createSelector(
+  selectInvoice,
+  (invoiceState) => {
+    const filterLc = invoiceState.get('filter').toLowerCase();
+    if (!filterLc || filterLc.length === 0) {
+      return invoiceState.get('list');
+    }
+    return invoiceState.get('list').filter((i) => i.name.toLowerCase().indexOf(filterLc) !== -1 ||
+    String(i.active).toLowerCase().indexOf(filterLc) !== -1 || i.client.name.toLowerCase().indexOf(filterLc) !== -1);
+  },
+);
+
+const selectFilterInput = () => createSelector(
+  selectInvoice,
+  (invoiceState) => invoiceState.get('filter')
+);
+
+const selectSelectedInvoice = () => createSelector(
+  selectInvoice,
+  (invoiceState) => {
+    if (Iterable.isIterable(invoiceState.get('selected'))) {
+      return invoiceState.get('selected').toJS();
+    } else {
+      return invoiceState.get('selected');
+    }
+  }
+);
+
+
+const selectClients = () => createSelector(
+  selectClient,
+  (clientState) => {
+    return clientState.get('list');
+  }
+);
+
+const selectSelectedClient = () => createSelector(
+  selectClient,
+  (clientState) => {
+    return clientState.get('selected');
+  }
+);
+
+
+
 // makeSelectLocationState expects a plain JS object for the routing state
 const makeSelectLocationState = () => {
   let prevRoutingState;
@@ -17,4 +73,10 @@ const makeSelectLocationState = () => {
 
 export {
   makeSelectLocationState,
+  selectInvoices,
+  selectFilterInvoices,
+  selectFilterInput,
+  selectSelectedInvoice,
+  selectClients,
+  selectSelectedClient,
 };

@@ -10,6 +10,11 @@ import {
   EDIT_INVOICE,
   LOAD_INVOICE_SUCCESS,
   EDIT_INVOICE_SUCCESS,
+  CHANGE_INVOICE_FORM,
+  ADD_ITEM,
+  CHANGE_ITEM_AMOUNT,
+  CHANGE_ITEM_DETAIL,
+  DELETE_ITEM,
 } from './constants';
 
 export function loadInvoices() {
@@ -26,6 +31,7 @@ export function invoicesLoaded(invoices) {
 }
 
 export function addInvoice(clientId, invoice) {
+  console.log(clientId, invoice);
   return {
     type: ADD_INVOICE,
     payload: {
@@ -42,16 +48,6 @@ export function addInvoiceSuccessfully(payload) {
   };
 }
 
-export function deleteInvoice(clientId, invoiceId) {
-  return {
-    type: DELETE_INVOICE,
-    payload: {
-      clientId,
-      invoiceId,
-    },
-  };
-}
-
 export function filterInvoices(val) {
   return {
     type: FILTER_INVOICES,
@@ -59,10 +55,9 @@ export function filterInvoices(val) {
   };
 }
 
-export function loadInvoice(clientId, invoiceId) {
+export function loadInvoice(invoiceId) {
   return {
     type: LOAD_INVOICE,
-    clientId,
     invoiceId,
   };
 }
@@ -90,4 +85,48 @@ export function editInvoiceSuccessfully(payload) {
     type: EDIT_INVOICE_SUCCESS,
     payload,
   };
+}
+
+export function changeInputInvoice(key, value) {
+  return {
+    type: CHANGE_INVOICE_FORM,
+    payload: {
+      key,
+      value,
+    },
+  }
+}
+
+export function addItemInvoice(item) {
+  return {
+    type: ADD_ITEM,
+    payload: item
+  }
+}
+
+export function changeAmountItem(index, value) {
+  return {
+    type: CHANGE_ITEM_AMOUNT,
+    payload: {
+      index,
+      value,
+    }
+  }
+}
+
+export function changeDetailItem(index, value) {
+  return {
+    type: CHANGE_ITEM_DETAIL,
+    payload: {
+      index,
+      value,
+    }
+  }
+}
+
+export function deleteItem(index) {
+  return {
+    type: DELETE_ITEM,
+    payload: index
+  }
 }

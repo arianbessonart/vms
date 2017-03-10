@@ -20,10 +20,9 @@ export function* getInvoices(action) {
 
 // TODO: change this call to a specific one
 export function* getInvoice(action) {
-  const requestURL = `${BASE_URL}/v1/stores/${action.storeId}?expand=invoices`;
+  const requestURL = `${BASE_URL}/v1/invoices/${action.invoiceId}`;
   try {
-    const store = yield call(request, requestURL);
-    const invoice = store.invoices[0];
+    const invoice = yield call(request, requestURL);
     yield put(invoiceLoaded(invoice));
   } catch (err) {
     console.log(err);
@@ -49,15 +48,16 @@ export function* deleteInvoice(action) {
 
 export function* addInvoice(action) {
   console.log(action);
-  const { storeId } = action.payload;
-  const requestURL = `${BASE_URL}/v1/stores/${storeId}/invoices`;
+  const { invoice, clientId } = action.payload;
+  invoice.client = clientId;
+  const requestURL = `${BASE_URL}/v1/invoices`;
   try {
     const watcher = yield call(request, requestURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(action.payload.invoice),
+      body: JSON.stringify(invoice),
     });
     yield put(addInvoiceSuccessfully({ location: '/invoices' }));
     yield take(LOCATION_CHANGE);
@@ -77,8 +77,8 @@ export function* addInvoiceSuccess(action) {
 }
 
 export function* editInvoice(action) {
-  const { storeId, invoiceId, invoice } = action.payload;
-  const requestURL = `${BASE_URL}/v1/stores/${storeId}/invoices/${invoiceId}`;
+  const { invoiceId, invoice } = action.payload;
+  const requestURL = `${BASE_URL}/v1/invoices/${invoiceId}`;
   try {
     const watcher = yield call(request, requestURL, {
       method: 'PUT',

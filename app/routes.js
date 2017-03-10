@@ -56,6 +56,56 @@ export default function createRoutes(store) {
       },
     },
     {
+      path: '/invoices/new',
+      name: 'invoiceNewPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+        import('containers/InvoicePage/reducer'),
+        import('containers/Client/reducer'),
+        import ('containers/InvoicePage/sagas'),
+        import ('containers/Client/sagas'),
+        import('containers/InvoicePage/NewInvoice'),
+      ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, component]) => {
+          injectReducer ('invoice', reducerInvoice.default);
+          injectReducer ('client', reducerClient.default);
+          injectSagas(sagasInvoice.default);
+          injectSagas(sagasClient.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/invoices/:invoiceId/edit',
+      name: 'invoiceEditPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+        import('containers/InvoicePage/reducer'),
+        import('containers/Client/reducer'),
+        import ('containers/InvoicePage/sagas'),
+        import ('containers/Client/sagas'),
+        import('containers/InvoicePage/EditInvoice'),
+      ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, component]) => {
+          injectReducer ('invoice', reducerInvoice.default);
+          injectReducer ('client', reducerClient.default);
+          injectSagas(sagasInvoice.default);
+          injectSagas(sagasClient.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

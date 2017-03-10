@@ -29,6 +29,7 @@ function findById(req, res, next) {
 }
 
 function create(req, res, next) {
+  console.log(req.body);
   if (!req.body.name || !req.body.number || !req.body.date) {
     res.status(403).end();
   }
