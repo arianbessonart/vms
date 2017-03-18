@@ -4,7 +4,7 @@ import { LOCATION_CHANGE, push } from 'react-router-redux';
 const BASE_URL = 'http://localhost:3000/api';
 import { clientsLoaded } from './actions';
 import { LOAD_CLIENTS, LOAD_CLIENTS_SUCCESS } from './constants';
-import request from '../../utils/request';
+import { request } from '../../utils/request';
 
 
 export function* getClients() {

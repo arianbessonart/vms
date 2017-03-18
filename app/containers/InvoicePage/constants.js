@@ -22,3 +22,5 @@ export const ADD_ITEM = 'ADD_ITEM';
 export const CHANGE_ITEM_AMOUNT = 'CHANGE_ITEM_AMOUNT';
 export const CHANGE_ITEM_DETAIL = 'CHANGE_ITEM_DETAIL';
 export const DELETE_ITEM = 'DELETE_ITEM';
+
+export const PRINT = 'PRINT';

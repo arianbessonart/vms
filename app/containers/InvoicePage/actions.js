@@ -130,3 +130,10 @@ export function deleteItem(index) {
     payload: index
   }
 }
+
+export function deleteInvoice(id) {
+  return {
+    type: DELETE_INVOICE,
+    payload: id
+  }
+}

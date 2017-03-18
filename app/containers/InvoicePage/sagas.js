@@ -3,8 +3,11 @@ import { LOCATION_CHANGE, push } from 'react-router-redux';
 // import { BASE_URL } from 'common/constants';
 const BASE_URL = 'http://localhost:3000/api';
 import { invoicesLoaded, invoiceLoaded, loadInvoices, addInvoiceSuccessfully, editInvoiceSuccessfully } from './actions';
-import { LOAD_INVOICES, LOAD_INVOICE, DELETE_INVOICE, ADD_INVOICE, ADD_INVOICE_SUCCESS, EDIT_INVOICE, EDIT_INVOICE_SUCCESS } from './constants';
-import request from '../../utils/request';
+import { LOAD_INVOICES, LOAD_INVOICE, DELETE_INVOICE, ADD_INVOICE,
+  ADD_INVOICE_SUCCESS, EDIT_INVOICE, EDIT_INVOICE_SUCCESS,
+} from './constants';
+import { request, requestDocument} from '../../utils/request';
+import {save} from '../../utils/saveData';
 
 
 export function* getInvoices(action) {
@@ -31,8 +34,7 @@ export function* getInvoice(action) {
 }
 
 export function* deleteInvoice(action) {
-  const { storeId, invoiceId } = action.payload;
-  const requestURL = `${BASE_URL}/v1/stores/${storeId}/invoices/${invoiceId}`;
+  const requestURL = `${BASE_URL}/v1/invoices/${action.payload}`;
   try {
     yield call(request, requestURL, {
       method: 'DELETE',
@@ -40,7 +42,7 @@ export function* deleteInvoice(action) {
         'Content-Type': 'application/json',
       },
     });
-    yield put(loadInvoices(storeId));
+    yield put(loadInvoices());
   } catch (err) {
     console.log(err);
   }
@@ -103,6 +105,7 @@ export function* editInvoiceSuccess(action) {
     console.log(err);
   }
 }
+
 
 export function* root() {
   const watcherInvoices = yield fork(takeLatest, LOAD_INVOICES, getInvoices);

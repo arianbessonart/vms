@@ -9,14 +9,11 @@ function generatePdf(invoice) {
 }
 
 function generateFileName(invoice) {
-  console.log(invoice.client.name);
-  console.log(invoice.name);
-  console.log(invoice.date);
   return invoice.client.name + "-" + invoice.name + "-" + invoice.number;
 }
 
 
 module.exports = {
-  generateFileName: generateFileName,
-  generatePdf: generatePdf
+  generateFileName,
+  generatePdf,
 };

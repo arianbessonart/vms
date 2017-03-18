@@ -21,7 +21,7 @@ const InvoiceList = (props) => {
             <TableHeaderColumn>Total - Retention</TableHeaderColumn>
             <TableHeaderColumn>Date</TableHeaderColumn>
             <TableHeaderColumn>Status</TableHeaderColumn>
-            <TableHeaderColumn>Billing</TableHeaderColumn>
+            <TableHeaderColumn>Actions</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>

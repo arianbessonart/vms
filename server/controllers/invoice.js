@@ -11,6 +11,7 @@ var Invoice = require('../model/invoice.model');
 function find(req, res, next) {
   Invoice.find({})
     .populate('client')
+    .sort('-date')
     .exec(function(err, data) {
       if (!err) {
         res.status(200).send(data);
@@ -86,7 +87,6 @@ function printPdf(req, res, next) {
       if (!err && data.length > 0) {
         var invoice = data[0];
         var filename = pdfUtil.generateFileName(invoice);
-        filename += filename.endsWith(".pdf") ? "" : ".pdf";
         res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
         res.setHeader('Content-type', 'application/pdf');
         var doc = pdfUtil.generatePdf(invoice);
@@ -96,11 +96,22 @@ function printPdf(req, res, next) {
     });
 }
 
+function deleteInvoice(req, res, next) {
+  Invoice.remove({ _id: req.params.id}, function (err) {
+    if (!err) {
+      res.status(200).send({});
+    } else {
+      res.status(500).send(err);
+    }
+  });
+}
+
 router.get('/', find);
 router.get('/:id/print', printPdf);
 router.get('/:id', findById);
 router.post('/', create);
 router.put('/:id/status/:status', changeStatus);
 router.put('/:id', update);
+router.delete('/:id', deleteInvoice);
 
 module.exports = router;

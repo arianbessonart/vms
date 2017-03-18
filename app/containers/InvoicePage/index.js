@@ -7,7 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import { TextField } from 'material-ui';
 
 import InvoiceList from 'components/Invoice/InvoiceList';
-import { loadInvoices, filterInvoices } from './actions';
+import { loadInvoices, filterInvoices, printInvoice } from './actions';
 import { selectFilterInvoices, selectFilterInput } from '../App/selectors';
 
 class InvoicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -23,7 +23,7 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
   };
 
   render() {
-    const { handleFilter, filter, invoices } = this.props;
+    const { handleFilter, filter, invoices, handleDelete } = this.props;
     const style = {
       marginRight: 20,
       top: 'auto',
@@ -48,7 +48,7 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
             fullWidth
           />
         </div>
-        <InvoiceList data={invoices} onCharge={this.handleOnCharge} />
+        <InvoiceList data={invoices} onCharge={this.handleOnCharge} deleteItem={handleDelete} />
         <Link to={'/invoices/new'}>
           <FloatingActionButton style={style}>
             <ContentAdd />
@@ -64,6 +64,7 @@ InvoicePage.propTypes = {
   invoices: React.PropTypes.any,
   fetchInvoices: React.PropTypes.func,
   handleFilter: React.PropTypes.func,
+  deleteItem: React.PropTypes.func,
 };
 
 
@@ -75,6 +76,10 @@ export function mapDispatchToProps(dispatch) {
     handleFilter: (val) => {
       dispatch(filterInvoices(val));
     },
+    handleDelete: (id) => {
+      console.log('handleDownload: ' + id)
+      dispatch(deleteInvoice(id));
+    }
   };
 }
 
