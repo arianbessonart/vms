@@ -7,7 +7,7 @@ const InvoiceList = (props) => {
   let invoiceRows = null;
   const { data } = props;
   if (data) {
-    invoiceRows = data.map((i, index) => <InvoiceListItem key={index} item={i} {...props} />);
+    invoiceRows = data.map((i, index) => (<InvoiceListItem key={index} item={i} {...props} />));
   }
   return (
     <div>
@@ -34,7 +34,6 @@ const InvoiceList = (props) => {
 
 InvoiceList.propTypes = {
   data: React.PropTypes.any,
-  onDelete: React.PropTypes.func,
 };
 
 export default InvoiceList;

@@ -28,19 +28,19 @@ class EditInvoicePage extends React.PureComponent { // eslint-disable-line react
     return (
       <div>
         <InvoiceForm
-        invoice={invoice}
-        clientSelected={client}
-        clients={clients}
-        onSelectedClient={this.onSelectClient}
-        handleName={handleName}
-        handleNumber={handleNumber}
-        handleDate={handleDate}
-        handleRetention={handleRetention}
-        addItem={addItem}
-        changeItemAmount={changeItemAmount}
-        changeItemDetail={changeItemDetail}
-        addInvoice={saveInvoice}
-        deleteItem={deleteItem}
+          invoice={invoice}
+          clientSelected={client}
+          clients={clients}
+          onSelectedClient={this.onSelectClient}
+          handleName={handleName}
+          handleNumber={handleNumber}
+          handleDate={handleDate}
+          handleRetention={handleRetention}
+          addItem={addItem}
+          changeItemAmount={changeItemAmount}
+          changeItemDetail={changeItemDetail}
+          addInvoice={saveInvoice}
+          deleteItem={deleteItem}
         />
       </div>
     );
@@ -65,25 +65,25 @@ export function mapDispatchToProps(dispatch) {
       dispatch(loadClients());
     },
     fetchInvoice: (id) => {
-      dispatch(loadInvoice(id))
+      dispatch(loadInvoice(id));
     },
     selectClient: (id) => {
       dispatch(selectClient(id));
     },
     handleName: (val) => {
-      dispatch(changeInputInvoice('name', val))
+      dispatch(changeInputInvoice('name', val));
     },
     handleNumber: (val) => {
-      dispatch(changeInputInvoice('number', val))
+      dispatch(changeInputInvoice('number', val));
     },
     handleDate: (val) => {
-      dispatch(changeInputInvoice('date', val))
+      dispatch(changeInputInvoice('date', val));
     },
     handleRetention: (val) => {
-      dispatch(changeInputInvoice('retention', val))
+      dispatch(changeInputInvoice('retention', val));
     },
     addItem: () => {
-      dispatch(addItemInvoice({detail: "", amount: 0}));
+      dispatch(addItemInvoice({ detail: '', amount: 0 }));
     },
     changeItemAmount: (index, val) => {
       dispatch(changeAmountItem(index, val));

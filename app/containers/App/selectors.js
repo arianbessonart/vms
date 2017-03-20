@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { Iterable } from 'immutable';
+import moment from 'moment';
 
 const selectInvoice = (state) => state.get('invoice');
 const selectClient = (state) => state.get('client');
@@ -17,8 +18,9 @@ const selectFilterInvoices = () => createSelector(
       return invoiceState.get('list');
     }
     return invoiceState.get('list').filter((i) => i.name.toLowerCase().indexOf(filterLc) !== -1 ||
-    String(i.active).toLowerCase().indexOf(filterLc) !== -1 || i.client.name.toLowerCase().indexOf(filterLc) !== -1);
-  },
+    String(i.active).toLowerCase().indexOf(filterLc) !== -1 || i.client.name.toLowerCase().indexOf(filterLc) !== -1 ||
+    moment(i.date).format('DD-MM-YYYY').indexOf(filterLc) !== -1);
+  }
 );
 
 const selectFilterInput = () => createSelector(
@@ -31,9 +33,8 @@ const selectSelectedInvoice = () => createSelector(
   (invoiceState) => {
     if (Iterable.isIterable(invoiceState.get('selected'))) {
       return invoiceState.get('selected').toJS();
-    } else {
-      return invoiceState.get('selected');
     }
+    return invoiceState.get('selected');
   }
 );
 
@@ -79,4 +80,4 @@ export {
   selectSelectedInvoice,
   selectClients,
   selectSelectedClient,
-};
+}

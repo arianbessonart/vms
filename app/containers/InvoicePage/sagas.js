@@ -1,13 +1,12 @@
 import { call, put, takeLatest, fork, takeEvery, take, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
+import { request } from '../../utils/request';
 // import { BASE_URL } from 'common/constants';
-const BASE_URL = 'http://localhost:3000/api';
 import { invoicesLoaded, invoiceLoaded, loadInvoices, addInvoiceSuccessfully, editInvoiceSuccessfully } from './actions';
 import { LOAD_INVOICES, LOAD_INVOICE, DELETE_INVOICE, ADD_INVOICE,
   ADD_INVOICE_SUCCESS, EDIT_INVOICE, EDIT_INVOICE_SUCCESS,
 } from './constants';
-import { request, requestDocument} from '../../utils/request';
-import {save} from '../../utils/saveData';
+const BASE_URL = 'http://localhost:3000/api';
 
 
 export function* getInvoices(action) {

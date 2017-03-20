@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
+import { DatePicker, TextField } from 'material-ui';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import { TextField } from 'material-ui';
 
 import InvoiceList from 'components/Invoice/InvoiceList';
-import { loadInvoices, filterInvoices, printInvoice } from './actions';
+import { loadInvoices, filterInvoices, deleteInvoice, editInvoice } from './actions';
 import { selectFilterInvoices, selectFilterInput } from '../App/selectors';
 
 class InvoicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -16,14 +16,19 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
     this.props.fetchInvoices();
   }
 
-  handleOnCharge = (invoiceId) => {
-    console.log(invoiceId);
-    // invoiceIdSelected = invoiceId;
-    // this.refs.dp.openDialog();
-  };
-
   render() {
+    let invoiceSelected = null;
     const { handleFilter, filter, invoices, handleDelete } = this.props;
+
+    const handleOnCharge = (invoice) => {
+      invoiceSelected = invoice;
+      this.dp.openDialog();
+    };
+
+    const handleOnChargeConfirmed = (e, date) => {
+      this.props.handleCharge(invoiceSelected, date);
+    };
+
     const style = {
       marginRight: 20,
       top: 'auto',
@@ -48,12 +53,13 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
             fullWidth
           />
         </div>
-        <InvoiceList data={invoices} onCharge={this.handleOnCharge} deleteItem={handleDelete} />
+        <InvoiceList data={invoices} onCharge={handleOnCharge} deleteItem={handleDelete} />
         <Link to={'/invoices/new'}>
           <FloatingActionButton style={style}>
             <ContentAdd />
           </FloatingActionButton>
         </Link>
+        <DatePicker ref={(c) => { this.dp = c; }} style={{ display: 'None' }} name="chargeDp" onChange={handleOnChargeConfirmed} />
       </div>
     );
   }
@@ -64,7 +70,7 @@ InvoicePage.propTypes = {
   invoices: React.PropTypes.any,
   fetchInvoices: React.PropTypes.func,
   handleFilter: React.PropTypes.func,
-  deleteItem: React.PropTypes.func,
+  handleDelete: React.PropTypes.func,
 };
 
 
@@ -77,9 +83,13 @@ export function mapDispatchToProps(dispatch) {
       dispatch(filterInvoices(val));
     },
     handleDelete: (id) => {
-      console.log('handleDownload: ' + id)
       dispatch(deleteInvoice(id));
-    }
+    },
+    handleCharge: (invoice, date) => {
+      invoice.dateBilled = date;
+      invoice.status = 'charged';
+      dispatch(editInvoice(invoice.client._id, invoice._id, invoice));
+    },
   };
 }
 

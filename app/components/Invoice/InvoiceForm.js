@@ -17,14 +17,14 @@ class InvoiceForm extends React.Component {
   }
 
   render() {
-    let { clients, invoice, onSelectedClient, clientSelected,
+    const { clients, invoice, onSelectedClient, clientSelected,
       addItem, handleName, handleNumber, handleDate,
       changeItemAmount, save, handleRetention, changeItemDetail,
       addInvoice, deleteItem
     } = this.props;
     return (
       <div>
-        <Grid style={{margin: "10px"}}>
+        <Grid style={{ margin: '10px' }}>
           <Row className="show-grid">
             <Col xs={6} md={4}>
               <Card>
@@ -36,12 +36,12 @@ class InvoiceForm extends React.Component {
                   <TextField
                     disabled
                     floatingLabelText="RUT"
-                    value={clientSelected ? clientSelected.rut : ""}
+                    value={clientSelected ? clientSelected.rut : ''}
                   />
                   <TextField
                     disabled
                     floatingLabelText="Address"
-                    value={ clientSelected ? clientSelected.address : ""}
+                    value={clientSelected ? clientSelected.address : ''}
                   />
                 </CardText>
               </Card>
@@ -52,17 +52,19 @@ class InvoiceForm extends React.Component {
                   <h4>Invoice</h4>
                 </CardTitle>
                 <CardText>
-                  <TextField floatingLabelText="Name Name"
-                             name="nameName"
-                             value={invoice.name}
-                             onChange={(e, val) => handleName(val)}
+                  <TextField
+                    floatingLabelText="Name Name"
+                    name="nameName"
+                    value={invoice.name}
+                    onChange={(e, val) => handleName(val)}
                   />
-                  <TextField floatingLabelText="Invoice N⁰"
-                             name="invoiceNumber"
-                             value={invoice.number}
-                             onChange={(e, val) => handleNumber(val)}
+                  <TextField
+                    floatingLabelText="Invoice N⁰"
+                    name="invoiceNumber"
+                    value={invoice.number}
+                    onChange={(e, val) => handleNumber(val)}
                   />
-                  <DatePicker floatingLabelText="Date" mode="landscape" value={invoice.date} onChange={(e, val) => handleDate(val)}/>
+                  <DatePicker floatingLabelText="Date" mode="landscape" value={invoice.date} onChange={(e, val) => handleDate(val)} />
                   <Toggle
                     label="Retention"
                     toggled={invoice.retention}
@@ -79,31 +81,31 @@ class InvoiceForm extends React.Component {
                 </CardTitle>
                 <CardText>
                   <TextField
-                    disabled={true}
+                    disabled
                     floatingLabelText="Sub Total"
-                    value={invoice.subTotal}
+                    value={invoice.subTotal.format(2)}
                   />
                   <TextField
-                    disabled={true}
+                    disabled
                     floatingLabelText="Iva"
-                    value={invoice.iva}
+                    value={invoice.iva.format(2)}
                   />
                   <TextField
-                    disabled={true}
+                    disabled
                     floatingLabelText="Total"
-                    value={invoice.total}
+                    value={invoice.total.format(2)}
                   />
                 </CardText>
               </Card>
             </Col>
           </Row>
-          <hr/>
-          <Row style={{padding: "10px"}}>
-            <div style={{clear: "both"}}>
+          <hr />
+          <Row style={{ padding: '10px' }}>
+            <div style={{ clear: 'both' }}>
               <FloatingActionButton onClick={addItem}>
                 <ContentAdd />
               </FloatingActionButton>
-              <FloatingActionButton style={{float: "right"}} onClick={() => addInvoice(invoice, clientSelected)}>
+              <FloatingActionButton style={{ float: 'right' }} onClick={() => addInvoice(invoice, clientSelected)}>
                 <ContentSave />
               </FloatingActionButton>
             </div>
@@ -113,11 +115,9 @@ class InvoiceForm extends React.Component {
       </div>
     );
   }
-};
+}
 
 InvoiceForm.propTypes = {
-  store: React.PropTypes.object,
-  handleSubmit: React.PropTypes.func,
   changeItemAmount: React.PropTypes.func,
   changeItemDetail: React.PropTypes.func,
   deleteItem: React.PropTypes.func,

@@ -15,6 +15,7 @@ import {
   CHANGE_ITEM_AMOUNT,
   CHANGE_ITEM_DETAIL,
   DELETE_ITEM,
+  CHANGE_STATUS_INVOICE,
 } from './constants';
 
 export function loadInvoices() {
@@ -31,7 +32,6 @@ export function invoicesLoaded(invoices) {
 }
 
 export function addInvoice(clientId, invoice) {
-  console.log(clientId, invoice);
   return {
     type: ADD_INVOICE,
     payload: {
@@ -94,14 +94,14 @@ export function changeInputInvoice(key, value) {
       key,
       value,
     },
-  }
+  };
 }
 
 export function addItemInvoice(item) {
   return {
     type: ADD_ITEM,
-    payload: item
-  }
+    payload: item,
+  };
 }
 
 export function changeAmountItem(index, value) {
@@ -110,8 +110,8 @@ export function changeAmountItem(index, value) {
     payload: {
       index,
       value,
-    }
-  }
+    },
+  };
 }
 
 export function changeDetailItem(index, value) {
@@ -120,20 +120,20 @@ export function changeDetailItem(index, value) {
     payload: {
       index,
       value,
-    }
-  }
+    },
+  };
 }
 
 export function deleteItem(index) {
   return {
     type: DELETE_ITEM,
-    payload: index
-  }
+    payload: index,
+  };
 }
 
 export function deleteInvoice(id) {
   return {
     type: DELETE_INVOICE,
-    payload: id
-  }
+    payload: id,
+  };
 }
