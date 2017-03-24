@@ -3,6 +3,7 @@
 // See http://blog.mxstbr.com/2016/01/react-apps-with-pages for more information
 // about the code splitting business
 import { getAsyncInjectors } from 'utils/asyncInjectors';
+import authHooks from './utils/authHook';
 
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
@@ -14,10 +15,11 @@ const loadModule = (cb) => (componentModule) => {
 
 export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
-  const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
+  const { injectReducer, injectSagas, authenticated } = authHooks( store ); // eslint-disable-line no-unused-vars
 
   return [
     {
+      onEnter: authenticated,
       path: '/',
       name: 'home',
       getComponent(nextState, cb) {
@@ -35,6 +37,7 @@ export default function createRoutes(store) {
       },
     },
     {
+      onEnter: authenticated,
       path: '/invoices',
       name: 'invoicePage',
       getComponent(nextState, cb) {
@@ -56,6 +59,7 @@ export default function createRoutes(store) {
       },
     },
     {
+      onEnter: authenticated,
       path: '/invoices/new',
       name: 'invoiceNewPage',
       getComponent(nextState, cb) {
@@ -81,6 +85,7 @@ export default function createRoutes(store) {
       },
     },
     {
+      onEnter: authenticated,
       path: '/invoices/:invoiceId/edit',
       name: 'invoiceEditPage',
       getComponent(nextState, cb) {
@@ -106,6 +111,7 @@ export default function createRoutes(store) {
       },
     },
     {
+      onEnter: authenticated,
       path: '/reports',
       name: 'reportsPage',
       getComponent(nextState, cb) {

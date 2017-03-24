@@ -21,6 +21,7 @@ const InvoiceList = (props) => {
             <TableHeaderColumn>Total - Retention</TableHeaderColumn>
             <TableHeaderColumn>Date</TableHeaderColumn>
             <TableHeaderColumn>Status</TableHeaderColumn>
+            <TableHeaderColumn>Date Billed</TableHeaderColumn>
             <TableHeaderColumn>Actions</TableHeaderColumn>
           </TableRow>
         </TableHeader>

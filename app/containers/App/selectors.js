@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { Iterable } from 'immutable';
 import moment from 'moment';
 
+const selectGlobal = (state) => state.get('global');
 const selectInvoice = (state) => state.get('invoice');
 const selectClient = (state) => state.get('client');
 
@@ -41,16 +42,12 @@ const selectSelectedInvoice = () => createSelector(
 
 const selectClients = () => createSelector(
   selectClient,
-  (clientState) => {
-    return clientState.get('list');
-  }
+  (clientState) => clientState.get('list')
 );
 
 const selectSelectedClient = () => createSelector(
   selectClient,
-  (clientState) => {
-    return clientState.get('selected');
-  }
+  (clientState) => clientState.get('selected')
 );
 
 
@@ -80,4 +77,4 @@ export {
   selectSelectedInvoice,
   selectClients,
   selectSelectedClient,
-}
+};

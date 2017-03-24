@@ -29,6 +29,10 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
       this.props.handleCharge(invoiceSelected, date);
     };
 
+    const handleCancel = (invoice) => {
+      this.props.handleCancel(invoice);
+    };
+
     const style = {
       marginRight: 20,
       top: 'auto',
@@ -53,7 +57,7 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
             fullWidth
           />
         </div>
-        <InvoiceList data={invoices} onCharge={handleOnCharge} deleteItem={handleDelete} />
+        <InvoiceList data={invoices} onCharge={handleOnCharge} deleteItem={handleDelete} onCancel={handleCancel} />
         <Link to={'/invoices/new'}>
           <FloatingActionButton style={style}>
             <ContentAdd />
@@ -71,6 +75,7 @@ InvoicePage.propTypes = {
   fetchInvoices: React.PropTypes.func,
   handleFilter: React.PropTypes.func,
   handleDelete: React.PropTypes.func,
+  handleCancel: React.PropTypes.func,
 };
 
 
@@ -88,6 +93,10 @@ export function mapDispatchToProps(dispatch) {
     handleCharge: (invoice, date) => {
       invoice.dateBilled = date;
       invoice.status = 'charged';
+      dispatch(editInvoice(invoice.client._id, invoice._id, invoice));
+    },
+    handleCancel: (invoice) => {
+      invoice.status = 'canceled';
       dispatch(editInvoice(invoice.client._id, invoice._id, invoice));
     },
   };

@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var InvoiceItemSchema = new Schema({
+const InvoiceItemSchema = new Schema({
   detail: { type: String, required: true },
-  quantity: {type: Number, default: 1},
-  amount: Number
+  quantity: { type: Number, default: 1 },
+  amount: Number,
 });
 
-var invoiceSchema = new Schema({
+const invoiceSchema = new Schema({
   name: { type: String, required: true },
   number: { type: Number, required: true },
   client: { type: Schema.Types.ObjectId, ref: 'Client' },
@@ -16,17 +16,17 @@ var invoiceSchema = new Schema({
   iva: Number,
   subTotal: Number,
   total: Number,
-  status: { type: String, enum: ['pending', 'charged', 'canceled'], default: 'pending'},
-  retention: { type: Boolean, default: false},
+  status: { type: String, enum: ['pending', 'charged', 'canceled'], default: 'pending' },
+  retention: { type: Boolean, default: false },
   dateBilled: Date,
   createdAt: Date,
   createdBy: String,
   updatedAt: Date,
-  updatedBy: String
+  updatedBy: String,
 });
 
-invoiceSchema.pre('save', function(next) {
-  var currentDate = new Date();
+invoiceSchema.pre('save', (next) => {
+  const currentDate = new Date();
 
   this.updatedAt = currentDate;
 
@@ -36,6 +36,6 @@ invoiceSchema.pre('save', function(next) {
   next();
 });
 
-var Invoice = mongoose.model('Invoice', invoiceSchema);
+const Invoice = mongoose.model('Invoice', invoiceSchema);
 
 module.exports = Invoice;
