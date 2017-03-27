@@ -5,6 +5,7 @@ import moment from 'moment';
 const selectGlobal = (state) => state.get('global');
 const selectInvoice = (state) => state.get('invoice');
 const selectClient = (state) => state.get('client');
+const selectReport = (state) => state.get('report');
 
 const selectInvoices = () => createSelector(
   selectInvoice,
@@ -55,6 +56,13 @@ const selectCurrentUser = () => createSelector(
   (globalState) => globalState.get('currentUser')
 );
 
+const selectMainReport = () => createSelector(
+  selectReport,
+  (reportState) => reportState.get('main')
+);
+
+
+
 
 // makeSelectLocationState expects a plain JS object for the routing state
 const makeSelectLocationState = () => {
@@ -82,4 +90,5 @@ export {
   selectClients,
   selectSelectedClient,
   selectCurrentUser,
+  selectMainReport,
 };

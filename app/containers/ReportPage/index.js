@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
-
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
+import { selectMainReport } from '../App/selectors';
+import { loadReports } from './actions';
 
 class ReportPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
+    this.props.fetchReports();
   }
 
   render() {
@@ -47,10 +49,14 @@ class ReportPage extends React.PureComponent { // eslint-disable-line react/pref
 
 export function mapDispatchToProps(dispatch) {
   return {
+    fetchReports: () => {
+      dispatch(loadReports());
+    },
   };
 }
 
 const mapStateToProps = createStructuredSelector({
+  report: selectMainReport(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReportPage);
