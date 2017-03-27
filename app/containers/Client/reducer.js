@@ -41,8 +41,7 @@ function clientReducer(state = initialState, action) {
     case ADD_INVOICE_SUCCESS:
       return state.set('selected', false);
     case LOAD_INVOICE_SUCCESS:
-      selected = state.get('list').find((o) => o._id == action.payload.client);
-      console.log(selected);
+      selected = state.get('list').find((o) => o._id === action.payload.client);
       return state
         .set('selected', selected);
     default:

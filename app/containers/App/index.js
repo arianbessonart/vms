@@ -1,13 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import classnames from 'classnames';
-import { Link } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Sidebar from '../../components/Sidebar';
+import { selectCurrentUser } from './selectors';
+import { logout } from './actions';
 injectTapEventPlugin();
 
 
-export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   static propTypes = {
     children: React.PropTypes.node,
@@ -34,11 +38,22 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
 
   render() {
+    const { user, handleLogout } = this.props;
+    let sidebar;
+    if (user) {
+      sidebar = <Sidebar
+        handleToggle={this.handleToggle}
+        open={this.state.open}
+        onDrawerChange={this.handleDrawer}
+        user={user}
+        onLogout={handleLogout}
+      />;
+    }
     return (
       <div>
         <MuiThemeProvider>
           <div>
-            <Sidebar handleToggle={this.handleToggle} open={this.state.open} onDrawerChange={this.handleDrawer} />
+            {sidebar}
             <div>
               <div className={classnames('app-content', { expanded: this.state.open })}> { React.Children.toArray(this.props.children) }</div>
             </div>
@@ -48,3 +63,19 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     );
   }
 }
+
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    handleLogout: () => {
+      dispatch(logout());
+    },
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+  user: selectCurrentUser(),
+});
+
+// Wrap the component to inject dispatch and state into it
+export default connect(mapStateToProps, mapDispatchToProps)(App);

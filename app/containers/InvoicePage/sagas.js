@@ -7,7 +7,7 @@ import { invoicesLoaded, invoiceLoaded, loadInvoices, addInvoiceSuccessfully, ed
 import { LOAD_INVOICES, LOAD_INVOICE, DELETE_INVOICE, ADD_INVOICE,
   ADD_INVOICE_SUCCESS, EDIT_INVOICE, EDIT_INVOICE_SUCCESS,
 } from './constants';
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'http://localhost:3001/api';
 
 
 export function* getInvoices(action) {

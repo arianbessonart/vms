@@ -50,6 +50,10 @@ const selectSelectedClient = () => createSelector(
   (clientState) => clientState.get('selected')
 );
 
+const selectCurrentUser = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('currentUser')
+);
 
 
 // makeSelectLocationState expects a plain JS object for the routing state
@@ -77,4 +81,5 @@ export {
   selectSelectedInvoice,
   selectClients,
   selectSelectedClient,
+  selectCurrentUser,
 };

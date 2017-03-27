@@ -6,7 +6,6 @@ class InvoiceTotal extends React.PureComponent { // eslint-disable-line react/pr
 
   render() {
     const { invoice } = this.props;
-    console.log(invoice);
     return (
       <div>
         <TextField disabled floatingLabelText="Sub Total" value={invoice.subTotal.format(2)} />

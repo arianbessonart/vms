@@ -15,46 +15,27 @@ const loadModule = (cb) => (componentModule) => {
 
 export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
-  const { injectReducer, injectSagas, authenticated } = authHooks( store ); // eslint-disable-line no-unused-vars
+  const { injectReducer, injectSagas, authenticated } = authHooks(store); // eslint-disable-line no-unused-vars
 
   return [
-    {
-      onEnter: authenticated,
-      path: '/',
-      name: 'home',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/HomePage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([component]) => {
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
     {
       onEnter: authenticated,
       path: '/invoices',
       name: 'invoicePage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-        import('containers/InvoicePage/reducer'),
-        import ('containers/InvoicePage/sagas'),
-        import('containers/InvoicePage'),
-      ]);
-
+          import('containers/InvoicePage/reducer'),
+          import ('containers/InvoicePage/sagas'),
+          import ('containers/App/sagas'),
+          import('containers/InvoicePage'),
+        ]);
         const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer ('invoice', reducer.default );
+        importModules.then(([reducer, sagas, rootSagas, component]) => {
+          injectReducer('invoice', reducer.default);
           injectSagas(sagas.default);
+          injectSagas(rootSagas.default);
           renderRoute(component);
         });
-
         importModules.catch(errorLoading);
       },
     },
@@ -68,16 +49,18 @@ export default function createRoutes(store) {
         import('containers/Client/reducer'),
         import ('containers/InvoicePage/sagas'),
         import ('containers/Client/sagas'),
+        import ('containers/App/sagas'),
         import('containers/InvoicePage/NewInvoice'),
       ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, component]) => {
+        importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, rootSagas, component]) => {
           injectReducer ('invoice', reducerInvoice.default);
           injectReducer ('client', reducerClient.default);
           injectSagas(sagasInvoice.default);
           injectSagas(sagasClient.default);
+          injectSagas(rootSagas.default);
           renderRoute(component);
         });
 
@@ -94,16 +77,18 @@ export default function createRoutes(store) {
         import('containers/Client/reducer'),
         import ('containers/InvoicePage/sagas'),
         import ('containers/Client/sagas'),
+        import ('containers/App/sagas'),
         import('containers/InvoicePage/EditInvoice'),
       ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, component]) => {
+        importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, rootSagas, component]) => {
           injectReducer ('invoice', reducerInvoice.default);
           injectReducer ('client', reducerClient.default);
           injectSagas(sagasInvoice.default);
           injectSagas(sagasClient.default);
+          injectSagas(rootSagas.default);
           renderRoute(component);
         });
 
@@ -118,16 +103,34 @@ export default function createRoutes(store) {
         const importModules = Promise.all([
         import('containers/ReportPage/reducer'),
         import ('containers/ReportPage/sagas'),
+        import ('containers/App/sagas'),
         import('containers/ReportPage/'),
       ]);
 
         const renderRoute = loadModule(cb);
-        importModules.then(([reducer, sagas, component]) => {
+        importModules.then(([reducer, sagas, rootSagas, component]) => {
           injectReducer ('report', reducer.default);
           injectSagas(sagas.default);
+          injectSagas(rootSagas.default);
           renderRoute(component);
         });
 
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/login',
+      name: 'loginPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+        import ('containers/App/sagas'),
+        import('containers/LoginPage/'),
+      ]);
+        const renderRoute = loadModule(cb);
+        importModules.then(([sagas, component]) => {
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
         importModules.catch(errorLoading);
       },
     },

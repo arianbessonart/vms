@@ -8,16 +8,16 @@ import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
 import FontIcon from 'material-ui/FontIcon'
 
-let Sidebar = ({ handleToggle, open, onDrawerChange }) => {
+let Sidebar = ({ user, handleToggle, open, onDrawerChange, onLogout }) => {
   return (
     <div>
       <AppBar
-        className={classnames('app-bar', {'expanded': open})}
+        className={classnames('app-bar', { 'expanded': open })}
         onLeftIconButtonTouchTap={handleToggle}
         title="Vermis"
       />
       <Drawer
-        docked={true}
+        docked
         open={open}
         onRequestChange={(openDrawer) => onDrawerChange(openDrawer)}
       >
@@ -41,6 +41,17 @@ let Sidebar = ({ handleToggle, open, onDrawerChange }) => {
           leftIcon={ <FontIcon className="material-icons">settings</FontIcon> }
           containerElement={<Link activeClassName="active" to={ '/settings' } />}
           className="menu-item" />
+        {
+          user
+          ?
+          <MenuItem
+            primaryText="Logout"
+            leftIcon={<FontIcon className="material-icons">exit_to_app</FontIcon>}
+            className="menu-item"
+            onTouchTap={onLogout}
+          />
+          : null
+        }
       </Drawer>
     </div>
   );

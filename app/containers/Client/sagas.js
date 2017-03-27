@@ -1,7 +1,7 @@
 import { call, put, takeLatest, fork, takeEvery, take, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 // import { BASE_URL } from 'common/constants';
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'http://localhost:3001/api';
 import { clientsLoaded } from './actions';
 import { LOAD_CLIENTS, LOAD_CLIENTS_SUCCESS } from './constants';
 import { request } from '../../utils/request';
@@ -19,7 +19,6 @@ export function* getClients() {
 }
 
 export function* addInvoice(action) {
-  console.log(action);
   const { storeId } = action.payload;
   const requestURL = `${BASE_URL}/v1/stores/${storeId}/invoices`;
   try {

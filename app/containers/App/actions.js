@@ -19,7 +19,7 @@ export function loginSuccess(user) {
   };
 }
 
-export function loginAction(username, password) {
+export function login(username, password) {
   return {
     type: LOGIN,
     username,
