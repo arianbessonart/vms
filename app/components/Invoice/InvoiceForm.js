@@ -22,6 +22,7 @@ class InvoiceForm extends React.Component {
       changeItemAmount, save, handleRetention, changeItemDetail,
       addInvoice, deleteItem
     } = this.props;
+    console.log(invoice);
     return (
       <div>
         <Grid style={{ margin: '10px' }}>

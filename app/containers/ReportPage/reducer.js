@@ -5,7 +5,7 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  main: false,
+  main: [],
   loading: false,
   error: false,
 });
@@ -14,7 +14,7 @@ function reportReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_REPORT_SUCCESS:
       return state
-        .set('main', action.reports)
+        .set('main', fromJS(action.reports))
         .set('loading', false);
     default:
       return state;

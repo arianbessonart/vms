@@ -47,7 +47,7 @@ function invoiceReducer(state = initialState, action) {
         .set('filter', action.payload);
     case LOAD_INVOICE_SUCCESS:
       selected = action.payload;
-      if (selected.date !== "") {
+      if (selected.date !== '') {
         selected.date = new Date(selected.date);
       }
       return state
@@ -102,10 +102,10 @@ function sumInvoiceItems(items) {
   subTotal = Number(subTotal);
   var iva = subTotal * 0.22;
   var total = subTotal + iva;
-  total = Number(total).format(2);
-  subTotal = Number(subTotal).format(2);
-  iva = Number(iva).format(2);
-  return {subTotal, iva, total};
+  // total = Number(total).format(2);
+  // subTotal = Number(subTotal).format(2);
+  // iva = Number(iva).format(2);
+  return { subTotal, iva, total };
 }
 
 Number.prototype.format = function(n, x) {

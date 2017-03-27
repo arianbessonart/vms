@@ -58,11 +58,8 @@ const selectCurrentUser = () => createSelector(
 
 const selectMainReport = () => createSelector(
   selectReport,
-  (reportState) => reportState.get('main')
+  (reportState) => reportState.get('main').toJS()
 );
-
-
-
 
 // makeSelectLocationState expects a plain JS object for the routing state
 const makeSelectLocationState = () => {

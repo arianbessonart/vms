@@ -7,10 +7,9 @@ import { request } from '../../utils/request';
 
 
 export function* loadReport(action) {
-  const requestURL = `${BASE_URL}/v1/reports`;
+  const requestURL = `${BASE_URL}/v1/reports/byMonth`;
   try {
     const reports = yield call(request, requestURL);
-    console.log(reports);
     yield put(reportsLoaded(reports));
   } catch (err) {
     console.log(err);
