@@ -1,7 +1,6 @@
 /* eslint consistent-return:0 */
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const logger = require('./logger');
 
 const argv = require('minimist')(process.argv.slice(2));
@@ -9,23 +8,10 @@ const setup = require('./middlewares/frontendMiddleware');
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false;
 const resolve = require('path').resolve;
-const mongoose = require('mongoose');
-const serverConfig = require('./config');
-const api = require('./controllers');
 const app = express();
 
-
-mongoose.connect(serverConfig.dbUrl, (error) => {
-  if (error) {
-    console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
-    throw error;
-  }
-});
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
-app.use('/api', api);
+// app.use('/api', myApi);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {
@@ -38,7 +24,7 @@ const customHost = argv.host || process.env.HOST;
 const host = customHost || null; // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost';
 
-const port = argv.port || process.env.PORT || 3001;
+const port = argv.port || process.env.PORT || 3000;
 
 // Start your app.
 app.listen(port, host, (err) => {

@@ -10,7 +10,7 @@ const InvoiceItemSchema = new Schema({
 const invoiceSchema = new Schema({
   name: { type: String, required: true },
   number: { type: Number, required: true },
-  client: { type: Schema.Types.ObjectId, ref: 'Client' },
+  client: { type: Schema.Types.ObjectId, ref: 'Client', required: true },
   date: { type: Date, required: true },
   items: [InvoiceItemSchema],
   iva: Number,

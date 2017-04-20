@@ -10,7 +10,7 @@ import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'http://localhost:3001/api';
 
 const InvoiceListItem = ({ item, deleteItem, onCharge, onCancel }) => {
 
