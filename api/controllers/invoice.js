@@ -1,20 +1,19 @@
 var express = require('express');
+var _ = require('lodash');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
-
 var pdfUtil = require('../util/pdf');
-
 var Invoice = require('../model/invoice.model');
 
 
-function find(req, res, next) {
-  Invoice.find({})
-    .populate('client')
-    .sort('-date')
-    .exec(function(err, data) {
-      if (!err) {
-        res.status(200).send(data);
-      }
+function find(req, res) {
+  const pagination = _.pick(req, ['page', 'limit']);
+  const filter = _.merge(req.query, req.q ? { name: new RegExp(req.q, 'i') } : {});
+  const options = _.merge(pagination, { populate: ['client'] });
+  Invoice.paginate(filter, options).then((result) => {
+    res.status(200).send(result);
+  }).catch((err) => {
+    res.status(500).send(err);
   });
 }
 
@@ -29,7 +28,6 @@ function findById(req, res, next) {
 }
 
 function create(req, res, next) {
-  console.log(req.body);
   if (!req.body.name || !req.body.number || !req.body.date) {
     res.status(403).end();
   }

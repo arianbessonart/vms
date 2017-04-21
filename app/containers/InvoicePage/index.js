@@ -6,7 +6,8 @@ import { DatePicker, TextField } from 'material-ui';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-import InvoiceList from 'components/Invoice/InvoiceList';
+// import InvoiceList from 'components/Invoice/InvoiceTable';
+import InvoiceList from '../../components/Invoice/InvoiceList';
 import { loadInvoices, filterInvoices, deleteInvoice, editInvoice } from './actions';
 import { selectFilterInvoices, selectFilterInput } from '../App/selectors';
 

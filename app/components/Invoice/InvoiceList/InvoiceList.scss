@@ -1,0 +1,51 @@
+.invoicelist-component {
+
+  .invoice-item-container:last-child .divider {
+    display: none;
+  }
+
+  .invoice-item {
+    .actions {
+      top: 23px !important;
+
+      .message {
+        padding: 0 40px;
+        margin-top: 12px;
+        display: block;
+        font-size: 13px;
+        color: #777;
+      }
+
+      .btn-component {
+        div>span {
+          font-size: 13px !important;
+          color: rgba(0,0,0,0.56) !important;
+        }
+
+        .material-icons {
+          font-size: 17px !important;
+          color: rgba(0,0,0,0.56) !important;
+        }
+
+        &:nth-child(2) {
+          border-left: solid 1px #CFCFCF !important;
+          border-right: solid 1px #CFCFCF !important;
+        }
+
+        &:last-child {
+          border-right: none !important;
+        }
+
+        &.active {
+          div>span {
+            color: #B0C447 !important;
+          }
+
+          .material-icons {
+            color: #B0C447 !important;
+          }
+        }
+      }
+    }
+  }
+}

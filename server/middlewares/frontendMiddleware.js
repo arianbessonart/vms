@@ -19,6 +19,7 @@ const addDevMiddlewares = (app, webpackConfig) => {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
+  app.use(express.static('/app/'));
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead

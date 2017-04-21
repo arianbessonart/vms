@@ -14,7 +14,8 @@ export function* getInvoices(action) {
   const requestURL = `${BASE_URL}/v1/invoices`;
   try {
     const invoices = yield call(request, requestURL);
-    yield put(invoicesLoaded(invoices));
+    console.log(invoices);
+    yield put(invoicesLoaded(invoices.docs));
   } catch (err) {
     console.log(err);
     // yield put(repoLoadingError(err));

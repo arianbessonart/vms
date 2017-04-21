@@ -19,6 +19,23 @@ mongoose.connect(serverConfig.dbUrl, (error) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.listen(serverConfig.port);
 app.use('/api', api);
 
-app.listen(serverConfig.port);
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  // intercept OPTIONS method
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    req.limit = parseInt(req.query.limit || 10);
+    req.page = parseInt(req.query.page || 1);
+    req.q = req.query.q || false;
+    delete req.query.limit;
+    delete req.query.page;
+    delete req.query.q;
+    next();
+  }
+});
