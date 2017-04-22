@@ -16,132 +16,132 @@ const loadModule = (cb) => (componentModule) => {
 export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas, authenticated } = authHooks(store); // eslint-disable-line no-unused-vars
+  return [];
+  // return [
+  //   {
+  //     onEnter: authenticated,
+  //     path: '/invoices',
+  //     name: 'invoicePage',
+  //     getComponent(nextState, cb) {
+  //       const importModules = Promise.all([
+  //         import('containers/InvoicePage/reducer'),
+  //         import ('containers/InvoicePage/sagas'),
+  //         import ('containers/App/sagas'),
+  //         import('containers/InvoicePage'),
+  //       ]);
+  //       const renderRoute = loadModule(cb);
+  //       importModules.then(([reducer, sagas, rootSagas, component]) => {
+  //         injectReducer('invoice', reducer.default);
+  //         injectSagas(sagas.default);
+  //         injectSagas(rootSagas.default);
+  //         renderRoute(component);
+  //       });
+  //       importModules.catch(errorLoading);
+  //     },
+  //   },
+  //   {
+  //     onEnter: authenticated,
+  //     path: '/invoices/new',
+  //     name: 'invoiceNewPage',
+  //     getComponent(nextState, cb) {
+  //       const importModules = Promise.all([
+  //       import('containers/InvoicePage/reducer'),
+  //       import('containers/Client/reducer'),
+  //       import ('containers/InvoicePage/sagas'),
+  //       import ('containers/Client/sagas'),
+  //       import ('containers/App/sagas'),
+  //       import('containers/InvoicePage/NewInvoice'),
+  //     ]);
 
-  return [
-    {
-      onEnter: authenticated,
-      path: '/invoices',
-      name: 'invoicePage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/InvoicePage/reducer'),
-          import ('containers/InvoicePage/sagas'),
-          import ('containers/App/sagas'),
-          import('containers/InvoicePage'),
-        ]);
-        const renderRoute = loadModule(cb);
-        importModules.then(([reducer, sagas, rootSagas, component]) => {
-          injectReducer('invoice', reducer.default);
-          injectSagas(sagas.default);
-          injectSagas(rootSagas.default);
-          renderRoute(component);
-        });
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      onEnter: authenticated,
-      path: '/invoices/new',
-      name: 'invoiceNewPage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-        import('containers/InvoicePage/reducer'),
-        import('containers/Client/reducer'),
-        import ('containers/InvoicePage/sagas'),
-        import ('containers/Client/sagas'),
-        import ('containers/App/sagas'),
-        import('containers/InvoicePage/NewInvoice'),
-      ]);
+  //       const renderRoute = loadModule(cb);
 
-        const renderRoute = loadModule(cb);
+  //       importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, rootSagas, component]) => {
+  //         injectReducer ('invoice', reducerInvoice.default);
+  //         injectReducer ('client', reducerClient.default);
+  //         injectSagas(sagasInvoice.default);
+  //         injectSagas(sagasClient.default);
+  //         injectSagas(rootSagas.default);
+  //         renderRoute(component);
+  //       });
 
-        importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, rootSagas, component]) => {
-          injectReducer ('invoice', reducerInvoice.default);
-          injectReducer ('client', reducerClient.default);
-          injectSagas(sagasInvoice.default);
-          injectSagas(sagasClient.default);
-          injectSagas(rootSagas.default);
-          renderRoute(component);
-        });
+  //       importModules.catch(errorLoading);
+  //     },
+  //   },
+  //   {
+  //     onEnter: authenticated,
+  //     path: '/invoices/:invoiceId/edit',
+  //     name: 'invoiceEditPage',
+  //     getComponent(nextState, cb) {
+  //       const importModules = Promise.all([
+  //       import('containers/InvoicePage/reducer'),
+  //       import('containers/Client/reducer'),
+  //       import ('containers/InvoicePage/sagas'),
+  //       import ('containers/Client/sagas'),
+  //       import ('containers/App/sagas'),
+  //       import('containers/InvoicePage/EditInvoice'),
+  //     ]);
 
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      onEnter: authenticated,
-      path: '/invoices/:invoiceId/edit',
-      name: 'invoiceEditPage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-        import('containers/InvoicePage/reducer'),
-        import('containers/Client/reducer'),
-        import ('containers/InvoicePage/sagas'),
-        import ('containers/Client/sagas'),
-        import ('containers/App/sagas'),
-        import('containers/InvoicePage/EditInvoice'),
-      ]);
+  //       const renderRoute = loadModule(cb);
 
-        const renderRoute = loadModule(cb);
+  //       importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, rootSagas, component]) => {
+  //         injectReducer ('invoice', reducerInvoice.default);
+  //         injectReducer ('client', reducerClient.default);
+  //         injectSagas(sagasInvoice.default);
+  //         injectSagas(sagasClient.default);
+  //         injectSagas(rootSagas.default);
+  //         renderRoute(component);
+  //       });
 
-        importModules.then(([reducerInvoice, reducerClient, sagasInvoice, sagasClient, rootSagas, component]) => {
-          injectReducer ('invoice', reducerInvoice.default);
-          injectReducer ('client', reducerClient.default);
-          injectSagas(sagasInvoice.default);
-          injectSagas(sagasClient.default);
-          injectSagas(rootSagas.default);
-          renderRoute(component);
-        });
+  //       importModules.catch(errorLoading);
+  //     },
+  //   },
+  //   {
+  //     onEnter: authenticated,
+  //     path: '/reports',
+  //     name: 'reportsPage',
+  //     getComponent(nextState, cb) {
+  //       const importModules = Promise.all([
+  //       import('containers/ReportPage/reducer'),
+  //       import ('containers/ReportPage/sagas'),
+  //       import ('containers/App/sagas'),
+  //       import('containers/ReportPage/'),
+  //     ]);
 
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      onEnter: authenticated,
-      path: '/reports',
-      name: 'reportsPage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-        import('containers/ReportPage/reducer'),
-        import ('containers/ReportPage/sagas'),
-        import ('containers/App/sagas'),
-        import('containers/ReportPage/'),
-      ]);
+  //       const renderRoute = loadModule(cb);
+  //       importModules.then(([reducer, sagas, rootSagas, component]) => {
+  //         injectReducer ('report', reducer.default);
+  //         injectSagas(sagas.default);
+  //         injectSagas(rootSagas.default);
+  //         renderRoute(component);
+  //       });
 
-        const renderRoute = loadModule(cb);
-        importModules.then(([reducer, sagas, rootSagas, component]) => {
-          injectReducer ('report', reducer.default);
-          injectSagas(sagas.default);
-          injectSagas(rootSagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      path: '/login',
-      name: 'loginPage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-        import ('containers/App/sagas'),
-        import('containers/LoginPage/'),
-      ]);
-        const renderRoute = loadModule(cb);
-        importModules.then(([sagas, component]) => {
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
-        importModules.catch(errorLoading);
-      },
-    },
-    {
-      path: '*',
-      name: 'notfound',
-      getComponent(nextState, cb) {
-        import('containers/NotFoundPage')
-          .then(loadModule(cb))
-          .catch(errorLoading);
-      },
-    },
-  ];
+  //       importModules.catch(errorLoading);
+  //     },
+  //   },
+  //   {
+  //     path: '/login',
+  //     name: 'loginPage',
+  //     getComponent(nextState, cb) {
+  //       const importModules = Promise.all([
+  //       import ('containers/App/sagas'),
+  //       import('containers/LoginPage/'),
+  //     ]);
+  //       const renderRoute = loadModule(cb);
+  //       importModules.then(([sagas, component]) => {
+  //         injectSagas(sagas.default);
+  //         renderRoute(component);
+  //       });
+  //       importModules.catch(errorLoading);
+  //     },
+  //   },
+  //   {
+  //     path: '*',
+  //     name: 'notfound',
+  //     getComponent(nextState, cb) {
+  //       import('containers/NotFoundPage')
+  //         .then(loadModule(cb))
+  //         .catch(errorLoading);
+  //     },
+  //   },
+  // ];
 }

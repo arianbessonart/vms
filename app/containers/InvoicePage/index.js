@@ -42,22 +42,8 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
       left: 'auto',
       position: 'fixed',
     };
-    const filterStyle = {
-      width: '400px',
-      marginRight: 'auto',
-      marginLeft: 'auto',
-    };
     return (
       <div>
-        <div style={filterStyle}>
-          <TextField
-            floatingLabelText="Filter"
-            name="filter"
-            value={filter}
-            onChange={(e, val) => handleFilter(val)}
-            fullWidth
-          />
-        </div>
         <InvoiceList data={invoices} onCharge={handleOnCharge} deleteItem={handleDelete} onCancel={handleCancel} />
         <Link to={'/invoices/new'}>
           <FloatingActionButton style={style}>

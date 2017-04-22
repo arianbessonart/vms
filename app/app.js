@@ -42,7 +42,8 @@ import { translationMessages } from './i18n';
 import './global-styles';
 
 // Import root routes
-import createRoutes from './routes';
+// import createRoutes from './routes';
+import createRoutes from './routes/index';
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
