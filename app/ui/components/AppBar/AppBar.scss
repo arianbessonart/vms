@@ -1,0 +1,60 @@
+.main-appbar-component {
+
+  .right-col {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .action-bar-container {
+      margin-right: 270px;
+
+      .action-bar {
+        .btn-component {
+          font-size: 13px !important;
+          color: #238795 !important;
+
+          &:nth-child(2) {
+            border-left: solid 1px #CFCFCF !important;
+            border-right: solid 1px #CFCFCF !important;
+          }
+
+          &:nth-child(3) {
+            border-right: solid 1px #CFCFCF !important;
+          }
+
+          .material-icons {
+            font-size: 16px !important;
+            color: #238795 !important;
+          }
+        }
+      }
+    }
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+
+    a {
+      height: 40px;
+    }
+
+    .data {
+      margin-right: 15px;
+      span {
+        display: block;
+      }
+
+      .name {
+        font-size: 16px;
+        color: rgba(0,0,0,0.87)
+      }
+
+      .email {
+        font-size: 14px;
+        color: rgba(0,0,0,0.54)      
+      }
+    }
+  }
+}

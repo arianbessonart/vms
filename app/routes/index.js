@@ -1,7 +1,8 @@
 "use strict";
 
-// import CoreLayout from 'layouts/CoreLayout';
+import CoreLayout from "layouts/CoreLayout";
 import Invoices from "./Invoices";
+import Reports from "./Reports";
 import authHooks from "../utils/authHook";
 
 export default function createRoutes(store) {
@@ -11,13 +12,14 @@ export default function createRoutes(store) {
   return [
     {
       path: "/",
-      // component   : CoreLayout,
+      component: CoreLayout,
       // onEnter: asyncInjectors.authenticated,
       indexRoute: Invoices(asyncInjectors),
       childRoutes: [
         Invoices(asyncInjectors),
+        Reports(asyncInjectors),
         //ErrorPage(asyncInjectors, '*', '404', 'Not found')
-      ],
+      ]
     }
   ];
 }

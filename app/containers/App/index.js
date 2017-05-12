@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Sidebar from '../../components/Sidebar';
 import { selectCurrentUser } from './selectors';
+import Helmet from 'react-helmet';
 import { logout } from './actions';
 injectTapEventPlugin();
 
@@ -53,7 +54,7 @@ class App extends React.PureComponent { // eslint-disable-line react/prefer-stat
       <div>
         <MuiThemeProvider>
           <div>
-            {sidebar}
+            {/*{sidebar}*/}
             <div>
               <div className={classnames('app-content', { expanded: this.state.open })}> { React.Children.toArray(this.props.children) }</div>
             </div>

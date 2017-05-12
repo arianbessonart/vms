@@ -1,0 +1,18 @@
+.layout-core {
+  background-color: #F2F2F2;
+  flex-direction: row;
+
+  .content {
+    flex: 1;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+
+    main {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      height: 100%;
+    }
+  }
+}

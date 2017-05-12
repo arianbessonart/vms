@@ -16,6 +16,8 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import 'sanitize.css/sanitize.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 // Import root app
 import App from 'containers/App';
@@ -33,6 +35,8 @@ import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
+import VermisTheme from 'ui/vermis-theme';
+
 import configureStore from './store';
 
 // Import i18n messages
@@ -44,6 +48,7 @@ import './global-styles';
 // Import root routes
 // import createRoutes from './routes';
 import createRoutes from './routes/index';
+
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
@@ -68,17 +73,21 @@ const rootRoute = {
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
-        <Router
-          history={history}
-          routes={rootRoute}
-          render={
-            // Scroll to top when going to a new page, imitating default browser
-            // behaviour
-            applyRouterMiddleware(useScroll())
-          }
-        />
-      </LanguageProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(VermisTheme)}>
+        <LanguageProvider messages={messages}>
+          <div style={{ height: '100%' }}>
+            <Router
+              history={history}
+              routes={rootRoute}
+              render={
+                // Scroll to top when going to a new page, imitating default browser
+                // behaviour
+                applyRouterMiddleware(useScroll())
+              }
+            />
+          </div>
+        </LanguageProvider>
+      </MuiThemeProvider>
     </Provider>,
     document.getElementById('app')
   );
