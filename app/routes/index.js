@@ -19,7 +19,7 @@ export default function createRoutes(store) {
         Invoices(asyncInjectors),
         Reports(asyncInjectors),
         //ErrorPage(asyncInjectors, '*', '404', 'Not found')
-      ]
-    }
+      ],
+    },
   ];
 }

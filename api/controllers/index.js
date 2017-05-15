@@ -15,6 +15,12 @@ router.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
     res.sendStatus(200);
   } else {
+    req.limit = parseInt(req.query.limit || 10);
+    req.page = parseInt(req.query.page || 1);
+    req.q = req.query.q || false;
+    delete req.query.limit;
+    delete req.query.page;
+    delete req.query.q;
     next();
   }
 });

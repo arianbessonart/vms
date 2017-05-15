@@ -7,22 +7,24 @@ import { invoicesLoaded, invoiceLoaded, loadInvoices, addInvoiceSuccessfully, ed
 import { LOAD_INVOICES, LOAD_INVOICE, DELETE_INVOICE, ADD_INVOICE,
   ADD_INVOICE_SUCCESS, EDIT_INVOICE, EDIT_INVOICE_SUCCESS,
 } from './constants';
+import encodeData from '../../utils/keyValueToUrlParams';
+
 const BASE_URL = 'http://localhost:8081/api';
 
-
 export function* getInvoices(action) {
-  const requestURL = `${BASE_URL}/v1/invoices`;
+  const { page, limit, query, filters } = action;
+  const filtersUrl = filters ? encodeData(filters) : '';
+
+  const requestURL = `${BASE_URL}/v1/invoices?page=${page}&limit=${limit}&q=${query}&${filtersUrl}`;
   try {
     const invoices = yield call(request, requestURL);
-    console.log(invoices);
-    yield put(invoicesLoaded(invoices.docs));
+    yield put(invoicesLoaded(invoices));
   } catch (err) {
     console.log(err);
     // yield put(repoLoadingError(err));
   }
 }
 
-// TODO: change this call to a specific one
 export function* getInvoice(action) {
   const requestURL = `${BASE_URL}/v1/invoices/${action.invoiceId}`;
   try {

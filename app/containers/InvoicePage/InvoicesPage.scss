@@ -1,0 +1,26 @@
+.invoices-page {
+  background-color: #F8F8F8;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+
+  .list-container {
+    flex: 1;
+    position: relative;
+    padding-top: 48px;
+  }
+
+  .filter-container {
+    height: 48px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .preview-container {
+    width: 420px;
+  }
+}

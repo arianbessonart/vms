@@ -14,10 +14,6 @@ injectTapEventPlugin();
 
 class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  static propTypes = {
-    children: React.PropTypes.node,
-  }
-
   constructor(props) {
     super(props);
     this.state = { open: true };
@@ -37,33 +33,19 @@ class App extends React.PureComponent { // eslint-disable-line react/prefer-stat
     this.setState({ open: openDrawer });
   }
 
-
   render() {
-    const { user, handleLogout } = this.props;
-    let sidebar;
-    if (user) {
-      sidebar = <Sidebar
-        handleToggle={this.handleToggle}
-        open={this.state.open}
-        onDrawerChange={this.handleDrawer}
-        user={user}
-        onLogout={handleLogout}
-      />;
-    }
     return (
-      <div>
-        <MuiThemeProvider>
-          <div>
-            {/*{sidebar}*/}
-            <div>
-              <div className={classnames('app-content', { expanded: this.state.open })}> { React.Children.toArray(this.props.children) }</div>
-            </div>
-          </div>
-        </MuiThemeProvider>
+      <div style={{ height: '100%' }}>
+        <Helmet title="Vermis" />
+        {React.Children.toArray(this.props.children)}
       </div>
     );
   }
 }
+
+App.propTypes = {
+  children: React.PropTypes.node,
+};
 
 
 export function mapDispatchToProps(dispatch) {

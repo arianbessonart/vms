@@ -5,7 +5,7 @@ import {
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
 
-import {fade} from 'material-ui/utils/colorManipulator';
+import { fade } from 'material-ui/utils/colorManipulator';
 import spacing from 'material-ui/styles/spacing';
 
 /**
@@ -14,16 +14,16 @@ import spacing from 'material-ui/styles/spacing';
  *  in a custom theme will default to these values.
  */
 export default {
-  spacing: spacing,
+  spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: '#238795',//'#6a104a',
+    primary1Color: '#238795', // '#6a104a',
     primary2Color: cyan700,
     primary3Color: grey400,
     accent1Color: '#B0C447',
     accent2Color: '#B0C447',
     accent3Color: '#B0C447',
-    textColor: 'rgba(0,0,0,0.87)',//darkBlack,
+    textColor: 'rgba(0,0,0,0.87)', // darkBlack,
     alternateTextColor: white,
     canvasColor: white,
     borderColor: grey300,
@@ -35,11 +35,11 @@ export default {
 
   appBar: {
     color: '#FFF',
-    height: '64px'
+    height: '64px',
   },
 
   button: {
     minWidth: 140,
-    height: 42
-  }
+    height: 42,
+  },
 };

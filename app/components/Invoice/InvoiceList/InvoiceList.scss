@@ -1,51 +1,24 @@
-.invoicelist-component {
+.invoices-list {
+  border-right: solid 1px rgba(#78828C, 0.13);
+  //flex: 1;
+  height: 100%;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
 
-  .invoice-item-container:last-child .divider {
-    display: none;
+
+  .infinte-list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 !important;
   }
 
-  .invoice-item {
-    .actions {
-      top: 23px !important;
+  .active {
+    background-color: rgba(0,0,0,0.06) !important;
+    border-right: solid 5px #B0C447 !important;
+  }
 
-      .message {
-        padding: 0 40px;
-        margin-top: 12px;
-        display: block;
-        font-size: 13px;
-        color: #777;
-      }
-
-      .btn-component {
-        div>span {
-          font-size: 13px !important;
-          color: rgba(0,0,0,0.56) !important;
-        }
-
-        .material-icons {
-          font-size: 17px !important;
-          color: rgba(0,0,0,0.56) !important;
-        }
-
-        &:nth-child(2) {
-          border-left: solid 1px #CFCFCF !important;
-          border-right: solid 1px #CFCFCF !important;
-        }
-
-        &:last-child {
-          border-right: none !important;
-        }
-
-        &.active {
-          div>span {
-            color: #B0C447 !important;
-          }
-
-          .material-icons {
-            color: #B0C447 !important;
-          }
-        }
-      }
-    }
+  .inactive {
+    opacity: 0.6;
   }
 }

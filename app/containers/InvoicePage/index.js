@@ -1,57 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
-import { DatePicker, TextField } from 'material-ui';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 
-// import InvoiceList from 'components/Invoice/InvoiceTable';
+import InvoicePreview from 'components/Invoice/InvoicePreview';
 import InvoiceList from '../../components/Invoice/InvoiceList';
 import { loadInvoices, filterInvoices, deleteInvoice, editInvoice } from './actions';
-import { selectFilterInvoices, selectFilterInput } from '../App/selectors';
+import { selectLoading, selectInvoices, selectHasMore, selectPage, selectQuery, selectFilters } from '../InvoicePage/selectors';
+
+import './InvoicesPage.scss';
 
 class InvoicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  state = {
+    selectedInvoice: {},
+  };
 
   componentDidMount() {
     this.props.fetchInvoices();
   }
 
+  _onSelect = (selectedInvoice) => {
+    console.log('seleccionado: ', selectedInvoice);
+    this.setState({ selectedInvoice });
+  }
+
+  _loadMore = () => {
+    if (!this.props.loading) {
+      const page = this.props.page + 1;
+      let { filters, query } = this.props;
+      this.props.fetchInvoices(query, filters, page);
+    }
+  }
+
   render() {
-    let invoiceSelected = null;
-    const { handleFilter, filter, invoices, handleDelete } = this.props;
+    const { invoices, loading, hasMore, page } = this.props;
+    const { selectedInvoice } = this.state;
 
-    const handleOnCharge = (invoice) => {
-      invoiceSelected = invoice;
-      this.dp.openDialog();
-    };
-
-    const handleOnChargeConfirmed = (e, date) => {
-      this.props.handleCharge(invoiceSelected, date);
-    };
-
-    const handleCancel = (invoice) => {
-      this.props.handleCancel(invoice);
-    };
-
-    const style = {
-      marginRight: 20,
-      top: 'auto',
-      right: 20,
-      bottom: 20,
-      left: 'auto',
-      position: 'fixed',
-    };
     return (
-      <div>
-        <InvoiceList data={invoices} onCharge={handleOnCharge} deleteItem={handleDelete} onCancel={handleCancel} />
-        <Link to={'/invoices/new'}>
-          <FloatingActionButton style={style}>
-            <ContentAdd />
-          </FloatingActionButton>
-        </Link>
-        <DatePicker ref={(c) => { this.dp = c; }} style={{ display: 'None' }} name="chargeDp" onChange={handleOnChargeConfirmed} />
-      </div>
+      <section className="invoices-page">
+        <div className="list-container">
+          <InvoiceList
+            data={invoices}
+            loading={loading}
+            loadMore={this._loadMore}
+            page={page}
+            hasMore
+            onSelectInvoice={this._onSelect}
+            selectedInvoice={this.state.selectedInvoice}
+          />
+        </div>
+        <div className="preview-container">
+          {/*<InvoicePreview
+            data={selectedInvoice}
+            onEdit={this._onEdit}
+            onDelete={this._onDelete}
+          />*/}
+        </div>
+      </section>
     );
   }
 }
@@ -68,30 +73,19 @@ InvoicePage.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    fetchInvoices: () => {
-      dispatch(loadInvoices());
-    },
-    handleFilter: (val) => {
-      dispatch(filterInvoices(val));
-    },
-    handleDelete: (id) => {
-      dispatch(deleteInvoice(id));
-    },
-    handleCharge: (invoice, date) => {
-      invoice.dateBilled = date;
-      invoice.status = 'charged';
-      dispatch(editInvoice(invoice.client._id, invoice._id, invoice));
-    },
-    handleCancel: (invoice) => {
-      invoice.status = 'canceled';
-      dispatch(editInvoice(invoice.client._id, invoice._id, invoice));
+    fetchInvoices: (query, filters, page, limit) => {
+      dispatch(loadInvoices(query, filters, page, limit));
     },
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  invoices: selectFilterInvoices(),
-  filterValue: selectFilterInput(),
+  invoices: selectInvoices(),
+  loading: selectLoading(),
+  hasMore: selectHasMore(),
+  page: selectPage(),
+  filters: selectFilters(),
+  query: selectQuery(),
 });
 
 // Wrap the component to inject dispatch and state into it

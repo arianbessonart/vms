@@ -1,0 +1,70 @@
+.invoice-preview {
+  margin-top: -2px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .header {
+    position: relative;
+    min-height: 116px;
+    max-height: 116px;
+    background: url('/preview-header.png') no-repeat center center;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: row;
+    //align-items: center;
+
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 116px;
+      background: url('/overlay.png') repeat-x center bottom;
+      background-size: 100% 90px;
+      width: 100%;
+      z-index: 0;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #FFF;
+      margin-left: 24px;
+    }
+  }
+
+  .actions {
+    height: 42px;
+    background-color: #F2F2F2;
+    display: flex;
+
+    .btn-component {
+      flex: 1;
+      font-size: 14px !important;
+      color: #238795 !important;
+
+      &:nth-child(2) {
+        border-left: solid 1px #CFCFCF !important;
+        border-right: solid 1px #CFCFCF !important;
+      }
+
+      .material-icons {
+        font-size: 18px !important;
+        color: #238795 !important;
+      }
+    }
+  }
+
+  .card {
+    flex: 1;
+  }
+
+  .card-content {
+    padding: 15px 25px !important;
+  }
+}

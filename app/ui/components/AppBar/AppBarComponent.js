@@ -1,5 +1,3 @@
-'use strict'
-
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
@@ -12,28 +10,31 @@ import FontIcon from 'material-ui/FontIcon';
 
 import { selectCurrentUser } from 'containers/App/selectors';
 
-import './AppBar.scss'
+import './AppBar.scss';
 
 class AppBarComponent extends React.Component {
   static propTypes = {
     title: React.PropTypes.string,
-    onToggleNavbar: React.PropTypes.func.isRequired
+    onToggleNavbar: React.PropTypes.func.isRequired,
+    actionBar: React.PropTypes.any,
+    user: React.PropTypes.any,
+    route: React.PropTypes.any,
   };
 
   constructor(props) {
-    super(props)
-    this._checkSize = this._checkSize.bind(this)
+    super(props);
+    this._checkSize = this._checkSize.bind(this);
     this.state = {
-      mobile : this._isMobile()
-    }
+      mobile: this._isMobile(),
+    };
   }
 
   componentWillMount() {
-    window.addEventListener("resize", this._checkSize)
+    window.addEventListener("resize", this._checkSize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this._checkSize)
+    window.removeEventListener("resize", this._checkSize);
   }
 
   _checkSize() {
@@ -41,17 +42,16 @@ class AppBarComponent extends React.Component {
   }
 
   _isMobile() {
-    let w = window,
-      d = document,
-      documentElement = d.documentElement,
-      body = d.getElementsByTagName('body')[0],
-      width = w.innerWidth || documentElement.clientWidth || body.clientWidth
-
-    return width < 1224
+    const w = window;
+    const d = document;
+    const documentElement = d.documentElement;
+    const body = d.getElementsByTagName('body')[0];
+    const width = w.innerWidth || documentElement.clientWidth || body.clientWidth;
+    return width < 1224;
   }
 
   _renderRight() {
-    let { user } = this.props
+    const { user } = this.props;
 
     return (
       <div className="right-col">
@@ -68,25 +68,26 @@ class AppBarComponent extends React.Component {
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   render() {
-    let { mobile } = this.state,
-        { onToggleNavbar, route } = this.props
+    const { mobile } = this.state;
+    const { onToggleNavbar, route } = this.props;
 
     return (
       <AppBar
         className="main-appbar-component"
-        title={ route.title ? route.title : '' }
+        title={route.title ? route.title : ''}
         style={{ minHeight: '64px' }}
         titleStyle={{ color: '#444', lineHeight: '64px' }}
         iconStyleLeft={{ display: 'flex', alignItems: 'center' }}
         iconElementLeft={<IconButton iconClassName="material-icons" iconStyle={{ color: '#666' }}>menu</IconButton>}
-        showMenuIconButton={ mobile }
-        onLeftIconButtonTouchTap={() => { onToggleNavbar(true) }}
+        showMenuIconButton={mobile}
+        onLeftIconButtonTouchTap={() => { onToggleNavbar(true); }}
         iconStyleRight={{ display: 'flex', alignItems: 'center' }}
-        iconElementRight={ this._renderRight() } />
+        iconElementRight={this._renderRight()}
+      />
     );
   }
 }

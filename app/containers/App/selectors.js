@@ -7,11 +7,6 @@ const selectInvoice = (state) => state.get('invoice');
 const selectClient = (state) => state.get('client');
 const selectReport = (state) => state.get('report');
 
-const selectInvoices = () => createSelector(
-  selectInvoice,
-  (invoiceState) => invoiceState.get('list')
-);
-
 const selectFilterInvoices = () => createSelector(
   selectInvoice,
   (invoiceState) => {
@@ -80,7 +75,6 @@ const makeSelectLocationState = () => {
 
 export {
   makeSelectLocationState,
-  selectInvoices,
   selectFilterInvoices,
   selectFilterInput,
   selectSelectedInvoice,

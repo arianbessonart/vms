@@ -1,4 +1,2 @@
-'use strict'
-
-import AppBar from './AppBarComponent'
-export default AppBar
+import AppBar from './AppBarComponent';
+export default AppBar;

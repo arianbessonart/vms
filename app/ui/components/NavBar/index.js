@@ -1,4 +1,2 @@
-'use strict'
-
-import NavBar from './NavBarComponent'
-export default NavBar
+import NavBar from './NavBarComponent';
+export default NavBar;

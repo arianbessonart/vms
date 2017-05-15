@@ -18,16 +18,20 @@ import {
   CHANGE_STATUS_INVOICE,
 } from './constants';
 
-export function loadInvoices() {
+export function loadInvoices(query = '', filters = {}, page = 1, limit = 10) {
   return {
     type: LOAD_INVOICES,
+    query,
+    filters,
+    page,
+    limit,
   };
 }
 
-export function invoicesLoaded(invoices) {
+export function invoicesLoaded(result) {
   return {
     type: LOAD_INVOICES_SUCCESS,
-    invoices,
+    result,
   };
 }
 

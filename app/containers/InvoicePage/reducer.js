@@ -1,4 +1,5 @@
 import { fromJS, Map } from 'immutable';
+import _ from 'lodash';
 
 import {
   LOAD_INVOICES_SUCCESS,
@@ -15,25 +16,55 @@ import {
 } from './constants';
 
 const initialState = fromJS({
-  list: [],
-  selected: {date: null, items: [], total: 0, subTotal: 0, iva: 0, name: "", number: "", retention: true},
-  filter: "",
+  // list: [],
+  // selected: {date: null, items: [], total: 0, subTotal: 0, iva: 0, name: "", number: "", retention: true},
+  // filter: "",
+  // loading: false,
+  // error: false,
+
   loading: false,
   error: false,
+  list: false,
+  query: '',
+  filters: {},
+  selected: null,
+  page: 0,
+  limit: 0,
+  total: 0,
+  hasMore: false,
+
 });
 
 function invoiceReducer(state = initialState, action) {
   let totals;
   let selected;
+  let list;
   switch (action.type) {
     case LOAD_INVOICES:
+      list = action.page === 1 ? false : state.get('list');
+      const filters = action.page === 1 ? {} : state.get('filters');
+      const query = action.page === 1 ? '' : state.get('query');
+
       return state
         .set('loading', true)
+        .set('loadingDelete', false)
         .set('error', false)
-        .set('list', false);
+        .set('page', action.page)
+        .set('limit', action.limit)
+        .set('filters', filters)
+        .set('query', query)
+        .set('list', list);
     case LOAD_INVOICES_SUCCESS:
+      console.log(action);
+      list = action.result.page === 1 ? action.result.docs : _.concat(state.get('list'), action.result.docs);
       return state
-        .set('list', action.invoices)
+        .set('list', list)
+        .set('page', action.result.page)
+        .set('limit', action.result.limit)
+        .set('total', action.result.total)
+        .set('filters', action.filters)
+        .set('query', action.query)
+        .set('hasMore', action.result.page * action.result.limit < action.result.total)
         .set('loading', false);
     case LOAD_INVOICES_ERROR:
       return state

@@ -1,0 +1,22 @@
+.emptymessage-component {
+  min-height: 300px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.4;
+  -webkit-font-smoothing: antialiased;
+
+  .material-icons {
+    font-size: 70px !important;
+    color: #777 !important;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 100;
+    color: #777;
+    margin: 10px 0;
+  }
+}
