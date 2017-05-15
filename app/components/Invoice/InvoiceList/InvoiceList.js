@@ -38,7 +38,6 @@ class InvoiceListComponent extends React.Component {
   }
   render() {
     const { data, loadMore, hasMore, loading, page, limit } = this.props;
-    console.log('hasMore: ', hasMore);
     return (
       <div className="invoices-list">
         <List className="infinte-list-container">
@@ -66,6 +65,11 @@ InvoiceListComponent.propTypes = {
   onSelectInvoice: React.PropTypes.func,
   data: React.PropTypes.any,
   selectedInvoice: React.PropTypes.object,
+  loadMore: React.PropTypes.func,
+  hasMore: React.PropTypes.bool,
+  loading: React.PropTypes.bool,
+  page: React.PropTypes.number,
+  limit: React.PropTypes.number,
 };
 
 export default InvoiceListComponent;

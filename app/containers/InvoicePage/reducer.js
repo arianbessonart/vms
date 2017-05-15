@@ -55,7 +55,6 @@ function invoiceReducer(state = initialState, action) {
         .set('query', query)
         .set('list', list);
     case LOAD_INVOICES_SUCCESS:
-      console.log(action);
       list = action.result.page === 1 ? action.result.docs : _.concat(state.get('list'), action.result.docs);
       return state
         .set('list', list)

@@ -43,56 +43,29 @@ class InvoicePreview extends React.Component {
           <h1>{ data.name }</h1>
         </div>
 
-        { owner &&
-          <div className="actions">
-            <Button
-              flat
-              label={data.active ? 'Ocultar' : 'Activar'}
-              icon={data.active ? 'visibility_off' : 'visibility'}
-              onClick={() => { onChangeVisibility(data._id, !data.active); }}
-            />
-            <Button flat label="Editar" icon="edit" onClick={() => { onEdit(data._id); }} />
-            <Button flat label="Borrar" icon="delete" onClick={() => { onDelete(data._id); }} />
-          </div>
-        }
-
-        {
-          !owner &&
-          <div className="actions">
-            <Button
-              classNames={classnames({ active: data.favorite })}
-              label="Favorito"
-              flat
-              icon="star"
-              onClick={() => { onFavorite(data._id); }}
-            />
-            <Button flat label="Agregar al PEDIDO" icon="shopping_cart" onClick={() => { }} />
-          </div>
-        }
+        <div className="actions">
+          <Button
+            flat
+            label={data.status === 'pending' ? 'Cobrar' : 'Cobrada'}
+            icon={data.status === 'pending' ? 'visibility_off' : 'visibility'}
+            disabled={data.status === 'charged'}
+            onClick={() => { onChangeVisibility(data._id, !data.active); }}
+          />
+          <Button flat label="Editar" icon="edit" onClick={() => { onEdit(data._id); }} />
+          <Button flat label="Borrar" icon="delete" onClick={() => { onDelete(data._id); }} />
+        </div>
 
         <Card className="card">
           <Tabs className="tabs">
             <Tab label="Información" className="tab" buttonStyle={styles.tabStyle} >
               <CardText className="card-content info">
-                <DataPair label={'Código'} value={data.code} />
-                <DataPair label={'Unidad'} value={data.unitPrice} />
-                <DataPair label={'Fracción Minima'} value={_.concat(data.minimumFraction, data.unitPrice)} />
-                <DataPair label={'Descripción'} value={data.description} />
+                <DataPair label={'Total'} value={data.total} />
+                <DataPair label={'Sub Total'} value={data.subTotal} />
+                <DataPair label={'IVA'} value={data.iva} />
               </CardText>
             </Tab>
 
-            <Tab label="Media" className="tab" buttonStyle={styles.tabStyle}>
-              <div>
-                <CardText>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                  Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                  Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-                </CardText>
-              </div>
-            </Tab>
-
-            <Tab label="Extras" className="tab" buttonStyle={styles.tabStyle}>
+            <Tab label="Detalle" className="tab" buttonStyle={styles.tabStyle}>
               <div>
                 <CardText>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -112,13 +85,11 @@ class InvoicePreview extends React.Component {
 InvoicePreview.propTypes = {
   data: React.PropTypes.object,
   loading: React.PropTypes.bool,
-  owner: React.PropTypes.bool,
 };
 
 InvoicePreview.defaultProps = {
   hasMore: false,
   loading: true,
-  owner: true,
 };
 
 export default InvoicePreview;
