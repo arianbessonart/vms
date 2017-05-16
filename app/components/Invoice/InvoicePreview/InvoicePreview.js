@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import moment from 'moment';
 import _ from 'lodash';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -57,10 +58,9 @@ class InvoicePreview extends React.Component {
           <Tabs className="tabs">
             <Tab label="Información" className="tab" buttonStyle={styles.tabStyle} >
               <CardText className="card-content info">
-                <DataPair label={'Total'} value={data.total.format(2)} />
-                <DataPair label={'Sub Total'} value={data.subTotal.format(2)} />
-                <DataPair label={'IVA'} value={data.iva.format(2)} />
-                <DataPair label={'Retención'} value={'$' + data.retention ? this.calculateRetention(data.total).format(2) : data.total.format(2)} />
+                <DataPair label={'Fecha'} value={moment(data.date).format('DD-MM-YYYY')} />
+                <DataPair label={'Fecha Cobrada'} value={data.dateBilled ? moment(data.dateBilled).format('DD-MM-YYYY') : null} />
+                <DataPair label={'Total - Retención'} value={'$' + data.retention ? this.calculateRetention(data.total).format(2) : data.total.format(2)} />
               </CardText>
             </Tab>
 
