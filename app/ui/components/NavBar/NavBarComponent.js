@@ -53,39 +53,48 @@ class NavBarComponent extends React.Component {
             leftIcon={<FontIcon className="material-icons">home</FontIcon>}
             containerElement={<IndexLink activeClassName="active" to={'/'} />}
             className="menu-item"
-            onTouchTap={() => { this._onRequestChange(false) }} />
+            onTouchTap={() => { this._onRequestChange(false); }} />
 
           <MenuItem
             primaryText="Facturas"
-            leftIcon={ <FontIcon className="material-icons">assignment</FontIcon> }
+            leftIcon={<FontIcon className="material-icons">assignment</FontIcon> }
             containerElement={<IndexLink activeClassName="active" to={ '/invoices' } />}
             className="menu-item"
-            onTouchTap={() => { this._onRequestChange(false) }} />
+            onTouchTap={() => { this._onRequestChange(false); }} />
 
           <MenuItem
             primaryText="Reportes"
             leftIcon={<FontIcon className="material-icons">pie_chart</FontIcon> }
             containerElement={<Link activeClassName="active" to={ '/reports' } />}
             className="menu-item"
-            onTouchTap={() => { this._onRequestChange(false) }} />
+            onTouchTap={() => { this._onRequestChange(false); }} />
 
-          <Divider inset style={{margin: '10px 20px'}} />
+          <Divider inset style={{ margin: '10px 20px' }} />
 
           <MenuItem
             primaryText="Clientes"
             leftIcon={<FontIcon className="material-icons">contacts</FontIcon>}
             containerElement={<Link activeClassName="active" to={ '/clients' } />}
             className="menu-item"
-            onTouchTap={() => { this._onRequestChange(false) }} />
+            onTouchTap={() => { this._onRequestChange(false); }} />
 
           <MenuItem
             primaryText="Compras"
             leftIcon={<FontIcon className="material-icons">rate_review</FontIcon>}
             containerElement={<Link activeClassName="active" to={'/purchases'} />}
             className="menu-item"
-            onTouchTap={() => {this._onRequestChange(false)}} />
+            onTouchTap={() => { this._onRequestChange(false); }} />
 
-          <Divider inset style={{margin: '10px 20px'}} />
+          <Divider inset style={{ margin: '10px 20px' }} />
+
+          <MenuItem
+            primaryText="Ajustes"
+            leftIcon={<FontIcon className="material-icons">settings</FontIcon>}
+            containerElement={<Link activeClassName="active" to={'/settings'} />}
+            className="menu-item"
+            onTouchTap={() => { this._onRequestChange(false); }} />
+
+          <Divider inset style={{ margin: '10px 20px' }} />
         </Menu>
 
         <Menu autoWidth={false} width={256}>

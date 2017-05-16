@@ -13,7 +13,6 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 const BASE_URL = 'http://localhost:3001/api';
 
 const InvoiceListItem = ({ item, deleteItem, onCharge, onCancel }) => {
-
   const calculateRetention = (total) => total - (total * 0.07);
 
   let statusIcon;

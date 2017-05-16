@@ -20,13 +20,11 @@ const styles = {
 };
 
 class InvoicePreview extends React.Component {
-  constructor() {
-    super();
-  }
+
+  calculateRetention = (total) => total - (total * 0.07);
 
   render() {
-    const { data, onEdit, onDelete, onChangeState, onChangeVisibility, onFavorite, owner } = this.props;
-
+    const { data, onEdit, onDelete } = this.props;
     if (_.isEmpty(data)) {
       return <div></div>;
     }
@@ -35,19 +33,19 @@ class InvoicePreview extends React.Component {
       <div className="invoice-preview">
         <div className="header">
           <Avatar
-            icon={<FontIcon className="muidocs-icon-communication-voicemail" />}
+            icon={<FontIcon className="material-icons">store</FontIcon>}
             color={'#CFCFCF'}
             backgroundColor={'#D8D8D8'}
             size={64}
           />
-          <h1>{ data.name }</h1>
+          <h1>{data.name}</h1>
         </div>
 
         <div className="actions">
           <Button
             flat
             label={data.status === 'pending' ? 'Cobrar' : 'Cobrada'}
-            icon={data.status === 'pending' ? 'visibility_off' : 'visibility'}
+            icon={data.status === 'pending' ? 'monetization_on' : 'done'}
             disabled={data.status === 'charged'}
             onClick={() => { onChangeVisibility(data._id, !data.active); }}
           />
@@ -59,9 +57,10 @@ class InvoicePreview extends React.Component {
           <Tabs className="tabs">
             <Tab label="Información" className="tab" buttonStyle={styles.tabStyle} >
               <CardText className="card-content info">
-                <DataPair label={'Total'} value={data.total} />
-                <DataPair label={'Sub Total'} value={data.subTotal} />
-                <DataPair label={'IVA'} value={data.iva} />
+                <DataPair label={'Total'} value={data.total.format(2)} />
+                <DataPair label={'Sub Total'} value={data.subTotal.format(2)} />
+                <DataPair label={'IVA'} value={data.iva.format(2)} />
+                <DataPair label={'Retención'} value={'$' + data.retention ? this.calculateRetention(data.total).format(2) : data.total.format(2)} />
               </CardText>
             </Tab>
 

@@ -3,7 +3,7 @@ import { loadModule, errorLoading } from "./util";
 export default asyncInjectors => ({
   path: "/reports",
   name: "reportsPage",
-  title: "Facturas",
+  title: "Reportes",
   getComponent(nextState, cb) {
     const importModules = Promise.all([
       import("containers/ReportPage/reducer"),

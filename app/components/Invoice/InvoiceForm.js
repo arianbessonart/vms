@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextField, Checkbox, Toggle, DatePicker} from 'material-ui'
+import {TextField, Checkbox, Toggle, DatePicker} from 'material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -22,7 +22,6 @@ class InvoiceForm extends React.Component {
       changeItemAmount, save, handleRetention, changeItemDetail,
       addInvoice, deleteItem
     } = this.props;
-    console.log(invoice);
     return (
       <div>
         <Grid style={{ margin: '10px' }}>

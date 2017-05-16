@@ -40,7 +40,7 @@ class InvoiceListComponent extends React.Component {
     const { data, loadMore, hasMore, loading, page, limit } = this.props;
     return (
       <div className="invoices-list">
-        <List className="infinte-list-container">
+        <List className="infinite-list-container">
           { loading && <LinearProgress mode="indeterminate" /> }
           { !loading && data.length === 0 && <EmptyMessage message={'No hay facturas'} icon="assignment" /> }
           <InfiniteScroll
