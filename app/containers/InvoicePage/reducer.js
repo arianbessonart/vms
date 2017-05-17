@@ -81,7 +81,7 @@ function invoiceReducer(state = initialState, action) {
         selected.date = new Date(selected.date);
       }
       return state
-        .set('selected', new Map(selected));
+        .set('selected', selected);
     case CHANGE_INVOICE_FORM:
       let value = action.payload.value;
       if (action.payload.key === 'retention') {

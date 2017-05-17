@@ -41,10 +41,13 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
     this.props.fetchInvoices(this.props.query, { [name]: value }, 1);
   }
 
+  _onEdit = (id) => {
+    this.props.router.push(`/invoices/${id}`);
+  }
+
   render() {
     const { invoices, loading, hasMore, page } = this.props;
     const { selectedInvoice } = this.state;
-
     return (
       <section className="invoices-page">
         <div className="list-container">
@@ -69,6 +72,7 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
             onDelete={this._onDelete}
           />
         </div>
+        { this.props.modal }
       </section>
     );
   }
@@ -81,6 +85,7 @@ InvoicePage.propTypes = {
   loading: React.PropTypes.bool,
   page: React.PropTypes.number,
   filters: React.PropTypes.any,
+  modal: React.PropTypes.any,
   query: React.PropTypes.string,
 };
 

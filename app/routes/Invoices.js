@@ -21,26 +21,26 @@ export default asyncInjectors => ({
     });
     importModules.catch(errorLoading);
   },
-  // getChildRoutes(nextState, callback) {
-  //   require.ensure([], function(require) {
-  //     callback(null, [
-  //       {
-  //         path: "/suppliers/:supplierId",
-  //         getComponent(nextState, cb) {
-  //           const importModules = Promise.all([
-  //             import("containers/Supplier/ProfileContainer")
-  //           ]);
+  getChildRoutes(nextState, callback) {
+    require.ensure([], function(require) {
+      callback(null, [
+        {
+          path: "/invoices/:invoiceId",
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import("containers/InvoicePage/InvoiceViewContainer")
+            ]);
 
-  //           const renderRoute = loadModule(cb);
-  //           importModules.then(([component]) => {
-  //             renderRoute({
-  //               component: component.default
-  //             });
-  //           });
-  //           importModules.catch(errorLoading);
-  //         }
-  //       }
-  //     ]);
-  //   });
-  // }
+            const renderRoute = loadModule(cb);
+            importModules.then(([component]) => {
+              renderRoute({
+                modal: component.default
+              });
+            });
+            importModules.catch(errorLoading);
+          }
+        }
+      ]);
+    });
+  }
 });
