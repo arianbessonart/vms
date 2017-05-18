@@ -11,7 +11,8 @@ class InvoiceView extends React.PureComponent { // eslint-disable-line react/pre
     const { invoice } = this.props;
     return invoice && invoice.items ? invoice.items.map((item, idx) => {
       return (
-        <tr key={`invoice-${idx}`} className={classnames('item', {
+        <tr
+          key={`invoice-${idx}`} className={classnames('item', {
             last: invoice.items.length - 1 === idx,
           })}>
           <td>
@@ -40,8 +41,8 @@ class InvoiceView extends React.PureComponent { // eslint-disable-line react/pre
 
                   <td>
                     Factura #: {invoice.number}<br />
-                    Creada: {moment(invoice.date).format('DD-MM-YYYY')}<br />
-                    Due: February 1, 2015
+                    Fecha Creada: {moment(invoice.date).format('LL')}<br />
+                    Fecha Cobrada: {invoice.status === 'charged' ? moment(invoice.dateBilled).format('LL') : '-'}<br />
                   </td>
                 </tr>
               </table>
@@ -53,7 +54,6 @@ class InvoiceView extends React.PureComponent { // eslint-disable-line react/pre
               <table>
                 <tr>
                   <td>
-                    <img src="http://gmkfreelogos.com/logos/G/img/Geant-1.gif" style={{width: '100%', maxWidth: '300px'}} />
                   </td>
                 </tr>
               </table>
@@ -71,19 +71,19 @@ class InvoiceView extends React.PureComponent { // eslint-disable-line react/pre
           <tr className="total">
             <td />
             <td>
-              Total: $385.00
+              Total: ${invoice.total.format(2)}
             </td>
           </tr>
         </table>
       </div>
     );
   }
-};
+}
 
 InvoiceView.propTypes = {
-  store: React.PropTypes.object,
+  invoice: React.PropTypes.object,
   handleSubmit: React.PropTypes.func,
-  onCancel: React.PropTypes.func
+  onCancel: React.PropTypes.func,
 };
 
 export default InvoiceView;

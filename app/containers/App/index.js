@@ -2,12 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import classnames from 'classnames';
+import moment from 'moment';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Sidebar from '../../components/Sidebar';
 import { selectCurrentUser } from './selectors';
 import Helmet from 'react-helmet';
 import { logout } from './actions';
+moment.locale('es');
 injectTapEventPlugin();
 
 

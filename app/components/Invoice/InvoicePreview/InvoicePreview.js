@@ -25,7 +25,7 @@ class InvoicePreview extends React.Component {
   calculateRetention = (total) => total - (total * 0.07);
 
   render() {
-    const { data, onEdit, onDelete } = this.props;
+    const { data, onEdit, onDelete, onCharge } = this.props;
     if (_.isEmpty(data)) {
       return <div></div>;
     }
@@ -48,7 +48,7 @@ class InvoicePreview extends React.Component {
             label={data.status === 'pending' ? 'Cobrar' : 'Cobrada'}
             icon={data.status === 'pending' ? 'monetization_on' : 'done'}
             disabled={data.status === 'charged'}
-            onClick={() => { onChangeVisibility(data._id, !data.active); }}
+            onClick={() => { onCharge(data._id); }}
           />
           <Button flat label="Editar" icon="edit" onClick={() => { onEdit(data._id); }} />
           <Button flat label="Borrar" icon="delete" onClick={() => { onDelete(data._id); }} />
@@ -84,6 +84,7 @@ class InvoicePreview extends React.Component {
 InvoicePreview.propTypes = {
   data: React.PropTypes.object,
   loading: React.PropTypes.bool,
+  onCharge: React.PropTypes.func,
 };
 
 InvoicePreview.defaultProps = {

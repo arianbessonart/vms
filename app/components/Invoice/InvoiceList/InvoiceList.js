@@ -3,10 +3,10 @@ import { List, ListItem } from 'material-ui/List';
 import classnames from 'classnames';
 import Avatar from 'material-ui/Avatar';
 import FontIcon from 'material-ui/FontIcon';
+import Chip from 'material-ui/Chip';
 import InfiniteScroll from 'react-infinite-scroller';
 import LinearProgress from 'material-ui/LinearProgress';
 import CircularProgress from 'material-ui/CircularProgress';
-
 import EmptyMessage from 'ui/components/EmptyMessage';
 
 import './InvoiceList.scss';
@@ -30,12 +30,40 @@ class InvoiceListComponent extends React.Component {
                 Número: {invoice.number} <br />
               </p>
             }
+            rightIconButton={this._buildRightLabel(invoice)}
             onTouchTap={() => { onSelectInvoice(invoice); }}
           />
         </div>
       );
     }) : null;
   }
+
+  _buildRightLabel = (invoice) => {
+    const { status } = invoice;
+    if (status === 'charged') {
+      return (
+        <div>
+          {/*<Chip className="message">
+            Text Chip
+          </Chip>*/}
+          <span className={classnames('message', 'charged')}>Cobrada</span>
+        </div>
+      );
+    } else if (status === 'pending') {
+      return (
+        <div>
+          <span className={classnames('message', 'pending')}>Pendiente</span>
+        </div>
+      );
+    } else if (status === 'canceled') {
+      return (
+        <div>
+          <span className={classnames('message', 'canceled')}>Cancelada</span>
+        </div>
+      );
+    }
+  }
+
   render() {
     const { data, loadMore, hasMore, loading, page, limit } = this.props;
     return (

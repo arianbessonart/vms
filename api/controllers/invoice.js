@@ -9,7 +9,7 @@ var Invoice = require('../model/invoice.model');
 function find(req, res) {
   const pagination = _.pick(req, ['page', 'limit']);
   const filter = _.merge(req.query, req.q ? { name: new RegExp(req.q, 'i') } : {});
-  const options = _.merge(pagination, { populate: ['client'] });
+  const options = _.merge(pagination, { populate: ['client'], sort: { date: -1 } });
   Invoice.paginate(filter, options).then((result) => {
     res.status(200).send(result);
   }).catch((err) => {

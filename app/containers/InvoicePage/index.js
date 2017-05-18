@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { DatePicker } from 'material-ui';
 
 import InvoicePreview from 'components/Invoice/InvoicePreview';
 import InvoicesFilters from 'components/Invoice/InvoicesFilters';
 import InvoiceList from '../../components/Invoice/InvoiceList';
-import { loadInvoices, filterInvoices, deleteInvoice, editInvoice } from './actions';
+import { loadInvoices, deleteInvoice, editInvoice } from './actions';
 import { selectLoading, selectInvoices, selectHasMore, selectPage, selectQuery, selectFilters } from '../InvoicePage/selectors';
 
 
@@ -28,7 +29,7 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
   _loadMore = () => {
     if (!this.props.loading) {
       const page = this.props.page + 1;
-      let { filters, query } = this.props;
+      const { filters, query } = this.props;
       this.props.fetchInvoices(query, filters, page);
     }
   }
@@ -44,6 +45,14 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
   _onEdit = (id) => {
     this.props.router.push(`/invoices/${id}`);
   }
+
+  _onCharge = (id) => {
+    this.dp.openDialog();
+  }
+
+  handleOnChargeConfirmed = (e, date) => {
+    console.log('cobrando: ', e);
+  };
 
   render() {
     const { invoices, loading, hasMore, page } = this.props;
@@ -68,11 +77,13 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
         <div className="preview-container">
           <InvoicePreview
             data={selectedInvoice}
+            onCharge={this._onCharge}
             onEdit={this._onEdit}
             onDelete={this._onDelete}
           />
         </div>
         { this.props.modal }
+        <DatePicker ref={(c) => { this.dp = c; }} style={{ display: 'None' }} name="chargeDp" onChange={this.handleOnChargeConfirmed} />
       </section>
     );
   }
@@ -86,6 +97,7 @@ InvoicePage.propTypes = {
   page: React.PropTypes.number,
   filters: React.PropTypes.any,
   modal: React.PropTypes.any,
+  router: React.PropTypes.any,
   query: React.PropTypes.string,
 };
 
