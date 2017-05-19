@@ -27,6 +27,22 @@ export default asyncInjectors => ({
     require.ensure([], function(require) {
       callback(null, [
         {
+          path: "/invoices/add",
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              import("containers/InvoicePage/InvoiceAddContainer")
+            ]);
+
+            const renderRoute = loadModule(cb);
+            importModules.then(([component]) => {
+              renderRoute({
+                modal: component.default
+              });
+            });
+            importModules.catch(errorLoading);
+          }
+        },
+        {
           path: "/invoices/:invoiceId",
           getComponent(nextState, cb) {
             const importModules = Promise.all([

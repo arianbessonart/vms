@@ -9,7 +9,7 @@ import { LOAD_INVOICES, LOAD_INVOICE, DELETE_INVOICE, ADD_INVOICE,
 } from './constants';
 import encodeData from '../../utils/keyValueToUrlParams';
 
-const BASE_URL = 'http://localhost:8081/api';
+const BASE_URL = 'http://localhost:8082/api';
 
 export function* getInvoices(action) {
   const { page, limit, query, filters } = action;

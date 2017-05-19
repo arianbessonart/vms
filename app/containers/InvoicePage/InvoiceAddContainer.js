@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import Dialog from 'material-ui/Dialog';
+import LoadingIndicator from 'ui/components/LoadingIndicator';
+import InvoiceViewComponent from 'components/Invoice/InvoiceView';
 
 import InvoiceForm  from '../../components/Invoice/InvoiceForm';
 import { loadClients, selectClient } from '../Client/actions';
@@ -8,26 +11,36 @@ import { changeInputInvoice, addItemInvoice, changeAmountItem, changeDetailItem,
 import { selectSelectedInvoice, selectSelectedClient, selectClients } from '../App/selectors';
 
 
-class NewInvoicePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class AddInvoice extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+  state = {
+    open: true,
+  }
 
   componentDidMount() {
-    this.props.fetchClients();
+    // this.props.fetchClients();
   }
 
   onSelectClient = (id) => {
-    this.props.selectClient(id);
+    // this.props.selectClient(id);
   }
 
+  handleClose = () => {
+    this.setState({ open: false });
+    this.props.router.replace('/invoices');
+  };
+
   render() {
-    let { invoice, client, clients, handleName,
+    const { invoice, client, clients, handleName,
       handleNumber, handleDate, handleRetention,
       addItem, changeItemAmount, changeItemDetail,
       saveInvoice, deleteItem
     } = this.props;
+    const { open } = this.state;
     return (
-     <Dialog
+      <Dialog
         titleClassName="dialog-title"
-        title={invoice ? invoice.name : ''}
+        title={'Nueva Factura'}
         modal={false}
         onRequestClose={this.handleClose}
         open={open}
@@ -35,23 +48,32 @@ class NewInvoicePage extends React.PureComponent { // eslint-disable-line react/
         style={{ overflowY: 'auto' }}
         contentStyle={{ transform: 'translate(0px, 30px)' }}
       >
-        {
-          invoice ? <h1>hola</h1>
-          : <LoadingIndicator height="300px" />
-        }
+        <InvoiceForm
+          invoice={invoice}
+          clientSelected={client}
+          clients={clients}
+          onSelectedClient={this.onSelectClient}
+          handleName={handleName}
+          handleNumber={handleNumber}
+          handleDate={handleDate}
+          handleRetention={handleRetention}
+          addItem={addItem}
+          changeItemAmount={changeItemAmount}
+          changeItemDetail={changeItemDetail}
+          addInvoice={saveInvoice}
+          deleteItem={deleteItem}
+        />
       </Dialog>
     );
   }
 }
 
-NewInvoicePage.propTypes = {
+AddInvoice.propTypes = {
   filter: React.PropTypes.any,
   invoices: React.PropTypes.any,
   fetchInvoices: React.PropTypes.func,
   fetchClients: React.PropTypes.func,
-  handleFilter: React.PropTypes.func,
-  saveInvoice: React.PropTypes.func,
-  deleteItem: React.PropTypes.func,
+  router: React.PropTypes.object,
 };
 
 
@@ -99,4 +121,4 @@ const mapStateToProps = createStructuredSelector({
   client: selectSelectedClient(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewInvoicePage);
+export default connect(null, null)(AddInvoice);

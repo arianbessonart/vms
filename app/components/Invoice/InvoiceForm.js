@@ -55,19 +55,19 @@ class InvoiceForm extends React.Component {
                   <TextField
                     floatingLabelText="Name Name"
                     name="nameName"
-                    value={invoice.name}
+                    value={invoice ? invoice.name : null}
                     onChange={(e, val) => handleName(val)}
                   />
                   <TextField
                     floatingLabelText="Invoice N⁰"
                     name="invoiceNumber"
-                    value={invoice.number}
+                    value={invoice ? invoice.number : null}
                     onChange={(e, val) => handleNumber(val)}
                   />
-                  <DatePicker floatingLabelText="Date" mode="landscape" value={invoice.date} onChange={(e, val) => handleDate(val)} />
+                  <DatePicker floatingLabelText="Date" mode="landscape" value={invoice ? invoice.date : null} onChange={(e, val) => handleDate(val)} />
                   <Toggle
                     label="Retention"
-                    toggled={invoice.retention}
+                    toggled={invoice ? invoice.retention : null}
                     labelPosition="right"
                     onToggle={handleRetention}
                   />
@@ -83,17 +83,17 @@ class InvoiceForm extends React.Component {
                   <TextField
                     disabled
                     floatingLabelText="Sub Total"
-                    value={invoice.subTotal.format(2)}
+                    value={invoice ? invoice.subTotal.format(2) : null}
                   />
                   <TextField
                     disabled
                     floatingLabelText="Iva"
-                    value={invoice.iva.format(2)}
+                    value={invoice ? invoice.iva.format(2) : null}
                   />
                   <TextField
                     disabled
                     floatingLabelText="Total"
-                    value={invoice.total.format(2)}
+                    value={invoice ? invoice.total.format(2) : null}
                   />
                 </CardText>
               </Card>
