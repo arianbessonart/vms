@@ -8,15 +8,17 @@ export default asyncInjectors => ({
     const importModules = Promise.all([
       import("containers/InvoicePage/reducer"),
       import("containers/InvoicePage/sagas"),
-      import("containers/InvoicePage")
+      import("containers/InvoicePage"),
+      import('components/Invoice/InvoiceActionBar')
     ]);
 
     const renderRoute = loadModule(cb);
-    importModules.then(([reducer, sagas, component]) => {
+    importModules.then(([reducer, sagas, component, actionBar]) => {
       asyncInjectors.injectReducer("invoice", reducer.default);
       asyncInjectors.injectSagas(sagas.default);
       renderRoute({
         children: component.default,
+        actionBar: actionBar.default,
       });
     });
     importModules.catch(errorLoading);

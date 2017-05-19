@@ -48,7 +48,7 @@
       font-size: 14px !important;
       color: #238795 !important;
 
-      &:nth-child(2) {
+      &:nth-child(odd) {
         border-left: solid 1px #CFCFCF !important;
         border-right: solid 1px #CFCFCF !important;
       }

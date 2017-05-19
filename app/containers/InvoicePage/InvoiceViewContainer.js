@@ -15,6 +15,7 @@ class InvoiceView extends React.PureComponent { // eslint-disable-line react/pre
   }
 
   componentWillMount() {
+    console.log('view invoice');
     this.props.fetchInvoice(this.props.params.invoiceId);
   }
 

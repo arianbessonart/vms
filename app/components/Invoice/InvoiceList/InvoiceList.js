@@ -43,9 +43,6 @@ class InvoiceListComponent extends React.Component {
     if (status === 'charged') {
       return (
         <div>
-          {/*<Chip className="message">
-            Text Chip
-          </Chip>*/}
           <span className={classnames('message', 'charged')}>Cobrada</span>
         </div>
       );
@@ -62,10 +59,11 @@ class InvoiceListComponent extends React.Component {
         </div>
       );
     }
+    return (<div></div>);
   }
 
   render() {
-    const { data, loadMore, hasMore, loading, page, limit } = this.props;
+    const { data, loadMore, hasMore, loading } = this.props;
     return (
       <div className="invoices-list">
         <List className="infinite-list-container">

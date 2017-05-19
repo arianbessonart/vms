@@ -82,8 +82,8 @@ export function* addInvoiceSuccess(action) {
 }
 
 export function* editInvoice(action) {
-  const { invoiceId, invoice } = action.payload;
-  const requestURL = `${BASE_URL}/v1/invoices/${invoiceId}`;
+  const { invoice } = action.payload;
+  const requestURL = `${BASE_URL}/v1/invoices/${invoice._id}`;
   try {
     const watcher = yield call(request, requestURL, {
       method: 'PUT',

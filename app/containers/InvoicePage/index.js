@@ -42,16 +42,16 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
     this.props.fetchInvoices(this.props.query, { [name]: value }, 1);
   }
 
-  _onEdit = (id) => {
+  _onView = (id) => {
     this.props.router.push(`/invoices/${id}`);
   }
 
-  _onCharge = (id) => {
+  _onCharge = () => {
     this.dp.openDialog();
   }
 
   handleOnChargeConfirmed = (e, date) => {
-    console.log('cobrando: ', e);
+    this.props.chargeInvoice(this.state.selectedInvoice, date);
   };
 
   render() {
@@ -78,8 +78,8 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
           <InvoicePreview
             data={selectedInvoice}
             onCharge={this._onCharge}
-            onEdit={this._onEdit}
-            onDelete={this._onDelete}
+            onView={this._onView}
+            onDownload={this._onDownload}
           />
         </div>
         { this.props.modal }
@@ -92,6 +92,7 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
 InvoicePage.propTypes = {
   invoices: React.PropTypes.any,
   fetchInvoices: React.PropTypes.func,
+  chargeInvoice: React.PropTypes.func,
   hasMore: React.PropTypes.bool,
   loading: React.PropTypes.bool,
   page: React.PropTypes.number,
@@ -106,6 +107,11 @@ export function mapDispatchToProps(dispatch) {
   return {
     fetchInvoices: (query, filters, page, limit) => {
       dispatch(loadInvoices(query, filters, page, limit));
+    },
+    chargeInvoice: (invoice, date) => {
+      invoice.status = 'charged';
+      invoice.dateBilled = date;
+      dispatch(editInvoice(invoice));
     },
   };
 }

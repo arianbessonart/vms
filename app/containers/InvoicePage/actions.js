@@ -15,7 +15,6 @@ import {
   CHANGE_ITEM_AMOUNT,
   CHANGE_ITEM_DETAIL,
   DELETE_ITEM,
-  CHANGE_STATUS_INVOICE,
 } from './constants';
 
 export function loadInvoices(query = '', filters = {}, page = 1, limit = 10) {
@@ -73,12 +72,10 @@ export function invoiceLoaded(invoice) {
   };
 }
 
-export function editInvoice(clientId, invoiceId, invoice) {
+export function editInvoice(invoice) {
   return {
     type: EDIT_INVOICE,
     payload: {
-      clientId,
-      invoiceId,
       invoice,
     },
   };

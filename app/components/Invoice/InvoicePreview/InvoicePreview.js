@@ -20,9 +20,32 @@ const styles = {
   },
 };
 
+const STATUS_LABEL_ICON_MAP = {
+  pending: { label: 'cobrar', icon: 'monetization_on', disabled: false },
+  charged: { label: 'cobrada', icon: 'done', disabled: true },
+  canceled: { label: 'cancelada', icon: 'block', disabled: true },
+};
+
 class InvoicePreview extends React.Component {
 
   calculateRetention = (total) => total - (total * 0.07);
+
+  _actionButtons = (data) => {
+    const { onView, onCharge, onDownload } = this.props;
+    return (
+      <div>
+        <Button flat icon="reply" label="abrir" onClick={() => { onView(data._id); }} />
+        <Button
+          flat
+          label={STATUS_LABEL_ICON_MAP[data.status].label}
+          icon={STATUS_LABEL_ICON_MAP[data.status].icon}
+          disabled={STATUS_LABEL_ICON_MAP[data.status].disabled}
+          onClick={() => { onCharge(data._id); }}
+        />
+        <Button flat icon="file_download" label="pdf" onClick={() => { onDownload(data._id); }} />
+      </div>
+    );
+  }
 
   render() {
     const { data, onEdit, onDelete, onCharge } = this.props;
@@ -43,15 +66,7 @@ class InvoicePreview extends React.Component {
         </div>
 
         <div className="actions">
-          <Button
-            flat
-            label={data.status === 'pending' ? 'Cobrar' : 'Cobrada'}
-            icon={data.status === 'pending' ? 'monetization_on' : 'done'}
-            disabled={data.status === 'charged'}
-            onClick={() => { onCharge(data._id); }}
-          />
-          <Button flat label="Editar" icon="edit" onClick={() => { onEdit(data._id); }} />
-          <Button flat label="Borrar" icon="delete" onClick={() => { onDelete(data._id); }} />
+          {this._actionButtons(data)}
         </div>
 
         <Card className="card">
@@ -85,6 +100,8 @@ InvoicePreview.propTypes = {
   data: React.PropTypes.object,
   loading: React.PropTypes.bool,
   onCharge: React.PropTypes.func,
+  onView: React.PropTypes.func,
+  onDownload: React.PropTypes.func,
 };
 
 InvoicePreview.defaultProps = {
