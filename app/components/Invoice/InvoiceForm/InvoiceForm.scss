@@ -1,0 +1,28 @@
+.invoice-form {
+  display: flex;
+  flex-direction: column;
+
+  .invoice-info {
+    flex: 1;
+  }
+
+  .invoice-items {
+    list-style: none;
+    padding-left: 0;
+    flex: 3;
+    margin-top: 75px;
+  }
+
+  .invoice-client-info {
+    display: block;
+
+    .invoice-client-info-address {
+      float: left;
+    }
+
+    .invoice-client-info-date {
+      float: right;
+    }
+  }
+}
+

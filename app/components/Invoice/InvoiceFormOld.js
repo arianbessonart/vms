@@ -11,7 +11,7 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import InvoiceItemTable from '../../containers/InvoicePage/InvoiceItemTable';
 import ClientSelector from '../../containers/Client/ClientSelector';
 
-class InvoiceForm extends React.Component {
+class InvoiceFormOld extends React.Component {
 
   componentDidMount() {
   }
@@ -117,10 +117,10 @@ class InvoiceForm extends React.Component {
   }
 }
 
-InvoiceForm.propTypes = {
+InvoiceFormOld.propTypes = {
   changeItemAmount: React.PropTypes.func,
   changeItemDetail: React.PropTypes.func,
   deleteItem: React.PropTypes.func,
 };
 
-export default InvoiceForm;
+export default InvoiceFormOld;

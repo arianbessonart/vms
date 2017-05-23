@@ -30,13 +30,17 @@ export default asyncInjectors => ({
           path: "/invoices/add",
           getComponent(nextState, cb) {
             const importModules = Promise.all([
+              import("containers/Client/reducer"),
+              import("containers/Client/sagas"),
               import("containers/InvoicePage/InvoiceAddContainer")
             ]);
 
             const renderRoute = loadModule(cb);
-            importModules.then(([component]) => {
+            importModules.then(([reducer, sagas, component]) => {
+              asyncInjectors.injectReducer("client", reducer.default);
+              asyncInjectors.injectSagas(sagas.default);
               renderRoute({
-                modal: component.default
+                modal: component.default,
               });
             });
             importModules.catch(errorLoading);
@@ -52,7 +56,7 @@ export default asyncInjectors => ({
             const renderRoute = loadModule(cb);
             importModules.then(([component]) => {
               renderRoute({
-                modal: component.default
+                modal: component.default,
               });
             });
             importModules.catch(errorLoading);
