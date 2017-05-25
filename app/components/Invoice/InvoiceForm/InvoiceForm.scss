@@ -10,19 +10,50 @@
     list-style: none;
     padding-left: 0;
     flex: 3;
-    margin-top: 75px;
   }
 
   .invoice-client-info {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    // border-bottom-style: solid;
+    // border-bottom-color: #bbc2c3;
+    margin-bottom: 30px;
 
     .invoice-client-info-address {
-      float: left;
+      flex: 3;
     }
 
-    .invoice-client-info-date {
-      float: right;
-    }
+  }
+
+  .invoice-items-table {
+    width: 100%;
+  }
+
+  .invoice-items-cointainer {
+    border-top-style: 2px solid;
+    border-top-color: #8a8c8c;
+    margin-top: 10px;
   }
 }
 
+table {
+  border-collapse: collapse;
+}
+td {
+  border: none;
+}
+table td {
+  border: 3px solid #8a8c8c;
+}
+table tr:first-child td {
+  border-top: 1;
+}
+table tr td:first-child {
+  border-left: 0;
+}
+table tr:last-child td {
+  border-bottom: 1;
+}
+table tr td:last-child {
+  border-right: 0;
+}

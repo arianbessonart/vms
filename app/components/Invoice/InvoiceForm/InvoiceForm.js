@@ -5,11 +5,13 @@ import { DatePicker } from 'material-ui';
 
 import ClientAutocomplete from 'components/Client/ClientAutocomplete';
 import Button from "ui/components/Button";
+// import FormTextField from "ui/components/FormTextField";
+import TextField from 'material-ui/TextField';
 import "./InvoiceForm.scss";
 
 class InvoiceForm extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  _buildItems = () => {
+  /*_buildItems = () => {
     // const { invoice } = this.props;
     const invoice = { items: [{ detail: 'detalle1', amount: '12321.1' }]};
     return invoice && invoice.items ? invoice.items.map((item, idx) => {
@@ -20,6 +22,21 @@ class InvoiceForm extends React.PureComponent { // eslint-disable-line react/pre
           })}>
           {item.detail}
         </li>
+      );
+    }) : null;
+  }*/
+
+  _buildItems = () => {
+    // const { invoice } = this.props;
+    const invoice = { items: [
+      { detail: 'detalle1', amount: '12321.1' },
+      { detail: 'detalle1', amount: '12321.1' }] };
+    return invoice && invoice.items ? invoice.items.map((item, idx) => {
+      return (
+        <tr key={`invoice-${idx}`}>
+          <td><TextField fullWidth /></td>
+          <td><TextField inputStyle={{ textAlign: 'center' }} /></td>
+        </tr>
       );
     }) : null;
   }
@@ -35,9 +52,15 @@ class InvoiceForm extends React.PureComponent { // eslint-disable-line react/pre
             <span className="invoice-client-info-date">Fecha: <DatePicker textFieldStyle={{ height: '0%' }} style={{ display: 'inline-block' }} /></span>
           </div>
         </div>
-        <ul className="invoice-items">
-          {this._buildItems()}
-        </ul>
+        <div className="invoice-items-cointainer">
+          <table className="invoice-items-table">
+            <tr>
+              <th style={{ width: '90%' }}>Detalle</th>
+              <th style={{ width: '10%' }}>Importe</th>
+            </tr>
+            {this._buildItems()}
+          </table>
+        </div>
       </div>
     );
   }
