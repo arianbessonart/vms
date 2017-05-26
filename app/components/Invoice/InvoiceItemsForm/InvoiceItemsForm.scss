@@ -1,3 +1,11 @@
 .row-item {
-  display: inline;
+  display: block;
+  padding: 0 20px;
+  position: relative;
+  margin: auto;
+
+  span {
+    width: 40%;
+    padding: 0 0 20px 0;
+  }
 }
