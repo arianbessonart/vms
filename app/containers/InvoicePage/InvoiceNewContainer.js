@@ -64,9 +64,9 @@ class NewInvoice extends React.PureComponent { // eslint-disable-line react/pref
           <InvoiceDetailForm clients={clients} selected={selectedClient} />
           <InvoiceItemsForm />
         </div>
-        <div className="invoice-total-container">
+        <aside className="invoice-total-container">
           <InvoiceTotalForm invoice={invoice} />
-        </div>
+        </aside>
       </section>
     );
   }
