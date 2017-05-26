@@ -3,23 +3,25 @@
   padding-left: 25px;
   padding-right: 25px;
   display: flex;
-  flex-direction: column;
-  .invoice-top-container {
+  flex-direction: row;
+  .invoice-left-container {
     flex: 2;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    padding-right: 10px;
+    & > * {
+      padding-bottom: 10px;
+    }
+
     .invoice-detail {
       flex: 1.6;
-      padding-right: 10px;
     }
     .invoice-total {
       flex: 1;
       padding-left: 10px;
     }
   }
-  .invoice-container-items {
-    flex: 3;
-    width: 60.5%;
-    padding-top: 15px;
+  .invoice-total-container {
+    flex: 1;
   }
 }

@@ -59,15 +59,15 @@ class NewInvoice extends React.PureComponent { // eslint-disable-line react/pref
     } = this.props;
     const { open, selectedClient } = this.state;
     return (
-      <div className="invoice-new-container">
-        <div className="invoice-top-container">
+      <section className="invoice-new-container">
+        <div className="invoice-left-container">
           <InvoiceDetailForm clients={clients} selected={selectedClient} />
-          <InvoiceTotalForm invoice={invoice} />
-        </div>
-        <div className="invoice-container-items">
           <InvoiceItemsForm />
         </div>
-      </div>
+        <div className="invoice-total-container">
+          <InvoiceTotalForm invoice={invoice} />
+        </div>
+      </section>
     );
   }
 }
