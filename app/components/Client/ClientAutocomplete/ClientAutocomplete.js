@@ -26,6 +26,7 @@ class ClientAutocomplete extends React.PureComponent { // eslint-disable-line re
     const searchText = selected ? selected.name : '';
     return (
       <AutoComplete
+        hintText="Cliente"
         searchText={searchText}
         filter={AutoComplete.fuzzyFilter}
         dataSource={this._buildOptions()}

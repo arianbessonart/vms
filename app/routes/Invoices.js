@@ -26,26 +26,26 @@ export default asyncInjectors => ({
   getChildRoutes(nextState, callback) {
     require.ensure([], function(require) {
       callback(null, [
-        {
-          path: "/invoices/add",
-          getComponent(nextState, cb) {
-            const importModules = Promise.all([
-              import("containers/Client/reducer"),
-              import("containers/Client/sagas"),
-              import("containers/InvoicePage/InvoiceAddContainer")
-            ]);
+        // {
+        //   path: "/invoices/add",
+        //   getComponent(nextState, cb) {
+        //     const importModules = Promise.all([
+        //       import("containers/Client/reducer"),
+        //       import("containers/Client/sagas"),
+        //       import("containers/InvoicePage/InvoiceAddContainer")
+        //     ]);
 
-            const renderRoute = loadModule(cb);
-            importModules.then(([reducer, sagas, component]) => {
-              asyncInjectors.injectReducer("client", reducer.default);
-              asyncInjectors.injectSagas(sagas.default);
-              renderRoute({
-                modal: component.default,
-              });
-            });
-            importModules.catch(errorLoading);
-          }
-        },
+        //     const renderRoute = loadModule(cb);
+        //     importModules.then(([reducer, sagas, component]) => {
+        //       asyncInjectors.injectReducer("client", reducer.default);
+        //       asyncInjectors.injectSagas(sagas.default);
+        //       renderRoute({
+        //         modal: component.default,
+        //       });
+        //     });
+        //     importModules.catch(errorLoading);
+        //   }
+        // },
         {
           path: "/invoices/:invoiceId",
           getComponent(nextState, cb) {

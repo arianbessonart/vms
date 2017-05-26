@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -17,7 +15,7 @@ class ButtonComponent extends React.Component {
   * @return {Component} react component
   */
   _buildButton() {
-    let { label, loading, isFinished, primary, flat, disabled, type, icon, classNames, href } = this.props,
+    let { label, loading, isFinished, primary, flat, disabled, type, icon, classNames, href, fullWidth } = this.props,
       labelContent = null;
 
     if (loading) {
@@ -32,6 +30,7 @@ class ButtonComponent extends React.Component {
       return (
         <RaisedButton
           className={classnames('btn-component', { [classNames]: classNames })}
+          fullWidth={fullWidth}
           type={type}
           label={labelContent}
           primary={primary}
