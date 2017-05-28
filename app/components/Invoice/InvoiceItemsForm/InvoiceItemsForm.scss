@@ -4,6 +4,18 @@
   position: relative;
   margin: auto;
 
+  .item-detail {
+    width: 75% !important;
+  }
+
+  .item-amount {
+    width: 15% !important;
+    padding-left: 10px;
+    input {
+      text-align: center;
+    }
+  }
+
   span {
     width: 40%;
     padding: 0 0 20px 0;

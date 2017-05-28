@@ -11,23 +11,33 @@ import "./InvoiceTotalForm.scss";
 class InvoiceTotalForm extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   render() {
-    const { invoice } = this.props;
+    const { invoice, onSubmit } = this.props;
     return (
-      <div className="invoice-total">
+      <section className="invoice-total">
         <Card containerStyle={{ minHeight: '208px' }}>
           <CardTitle title="Total" />
-          <TextField />
+          <div className="row-total">
+            <span>Total</span>
+            <TextField className="row-total-value" disabled value={`$ ${invoice && invoice.total ? invoice.total.format(2) : 0}`} />
+          </div>
+          <div className="row-total">
+            <span>SubTotal</span>
+            <TextField className="row-total-value" disabled value={`$ ${invoice && invoice.subTotal ? invoice.subTotal.format(2) : 0}`} />
+          </div>
+          <div className="row-total">
+            <span>Iva</span>
+            <TextField className="row-total-value" disabled value={`$ ${invoice && invoice.iva ? invoice.iva.format(2) : 0}`} />
+          </div>
         </Card>
-        <Button label="Crear Factura" primary fullWidth />
-      </div>
+        <Button label="Crear Factura" onClick={() => onSubmit()} primary fullWidth />
+      </section>
     );
   }
 }
 
 InvoiceTotalForm.propTypes = {
   invoice: React.PropTypes.object,
-  handleSubmit: React.PropTypes.func,
-  onCancel: React.PropTypes.func,
+  onSubmit: React.PropTypes.func,
 };
 
 export default InvoiceTotalForm;

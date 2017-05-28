@@ -52,9 +52,7 @@ export function* deleteInvoice(action) {
 }
 
 export function* addInvoice(action) {
-  console.log(action);
-  const { invoice, clientId } = action.payload;
-  invoice.client = clientId;
+  const { invoice } = action.payload;
   const requestURL = `${BASE_URL}/v1/invoices`;
   try {
     const watcher = yield call(request, requestURL, {

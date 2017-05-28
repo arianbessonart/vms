@@ -1,5 +1,6 @@
 
 import {
+  INIT_INVOICE,
   LOAD_INVOICES,
   LOAD_INVOICES_SUCCESS,
   ADD_INVOICE,
@@ -15,6 +16,7 @@ import {
   CHANGE_ITEM_AMOUNT,
   CHANGE_ITEM_DETAIL,
   DELETE_ITEM,
+  SELECT_CLIENT_INVOICE,
 } from './constants';
 
 export function loadInvoices(query = '', filters = {}, page = 1, limit = 10) {
@@ -34,11 +36,10 @@ export function invoicesLoaded(result) {
   };
 }
 
-export function addInvoice(clientId, invoice) {
+export function addInvoice(invoice) {
   return {
     type: ADD_INVOICE,
     payload: {
-      clientId,
       invoice,
     },
   };
@@ -135,6 +136,19 @@ export function deleteItem(index) {
 export function deleteInvoice(id) {
   return {
     type: DELETE_INVOICE,
+    payload: id,
+  };
+}
+
+export function initInvoice() {
+  return {
+    type: INIT_INVOICE,
+  };
+}
+
+export function selectClient(id) {
+  return {
+    type: SELECT_CLIENT_INVOICE,
     payload: id,
   };
 }
