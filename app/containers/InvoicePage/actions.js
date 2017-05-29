@@ -1,6 +1,7 @@
 
 import {
   INIT_INVOICE,
+  CLEAR_SELECTED,
   LOAD_INVOICES,
   LOAD_INVOICES_SUCCESS,
   ADD_INVOICE,
@@ -152,3 +153,11 @@ export function selectClient(id) {
     payload: id,
   };
 }
+
+export function clearSelected() {
+  return {
+    type: CLEAR_SELECTED,
+  };
+}
+
+

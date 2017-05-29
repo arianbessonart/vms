@@ -29,7 +29,7 @@ class InvoiceTotalForm extends React.PureComponent { // eslint-disable-line reac
             <TextField className="row-total-value" disabled value={`$ ${invoice && invoice.iva ? invoice.iva.format(2) : 0}`} />
           </div>
         </Card>
-        <Button label="Crear Factura" onClick={() => onSubmit()} primary fullWidth />
+        <Button label="Crear Factura" disabled={this.props.disableButton || false} onClick={() => onSubmit()} primary fullWidth />
       </section>
     );
   }
@@ -37,6 +37,7 @@ class InvoiceTotalForm extends React.PureComponent { // eslint-disable-line reac
 
 InvoiceTotalForm.propTypes = {
   invoice: React.PropTypes.object,
+  disableButton: React.PropTypes.any,
   onSubmit: React.PropTypes.func,
 };
 

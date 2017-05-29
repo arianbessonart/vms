@@ -31,7 +31,7 @@ class InvoicePreview extends React.Component {
   calculateRetention = (total) => total - (total * 0.07);
 
   _actionButtons = (data) => {
-    const { onView, onCharge, onDownload } = this.props;
+    const { onView, onCharge, onEdit, onDownload } = this.props;
     return (
       <div>
         <Button flat icon="reply" label="abrir" onClick={() => { onView(data._id); }} />
@@ -42,7 +42,7 @@ class InvoicePreview extends React.Component {
           disabled={STATUS_LABEL_ICON_MAP[data.status].disabled}
           onClick={() => { onCharge(data._id); }}
         />
-        <Button flat icon="file_download" label="pdf" onClick={() => { onDownload(data._id); }} />
+        <Button flat icon="file_download" label="pdf" onClick={() => { onEdit(data._id); }} />
       </div>
     );
   }
@@ -100,6 +100,7 @@ InvoicePreview.propTypes = {
   data: React.PropTypes.object,
   loading: React.PropTypes.bool,
   onCharge: React.PropTypes.func,
+  onEdit: React.PropTypes.func,
   onView: React.PropTypes.func,
   onDownload: React.PropTypes.func,
 };

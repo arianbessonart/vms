@@ -28,7 +28,9 @@ class InvoiceView extends React.PureComponent { // eslint-disable-line react/pre
 
   render() {
     const { handleSubmit, onCancel, invoice } = this.props;
-    console.log(invoice);
+    if (!invoice) {
+      return null;
+    }
     return (
       <div className="invoice-box">
         <table cellPadding="0" cellSpacing="0">
@@ -64,7 +66,7 @@ class InvoiceView extends React.PureComponent { // eslint-disable-line react/pre
               Item
             </td>
             <td>
-              Precio
+              Monto
             </td>
           </tr>
           {this.buildItems()}

@@ -14,7 +14,7 @@ import {
   CHANGE_ITEM_DETAIL,
   DELETE_ITEM,
   INIT_INVOICE,
-  SELECT_CLIENT,
+  CLEAR_SELECTED,
 } from './constants';
 
 const initialState = fromJS({
@@ -75,14 +75,18 @@ function invoiceReducer(state = initialState, action) {
         .set('selected', selected);
     case CHANGE_INVOICE_FORM:
       selected = state.get('selected');
-      let value = action.payload.value;
-      selected[action.payload.key] = value;
+      let value;
       if (action.payload.key === 'retention') {
-        value = !state.get('selected').get('retention');
+        value = selected ? !selected.retention : true;
+      } else {
+        value = action.payload.value;
       }
+      selected[action.payload.key] = value;
       return state.set('selected', { ...selected });
     case INIT_INVOICE:
       return state.set('selected', { items: [] });
+    case CLEAR_SELECTED:
+      return state.set('selected', null);
     case ADD_ITEM:
       selected = state.get('selected');
       selected.items = [...selected.items, action.payload];

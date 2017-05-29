@@ -46,6 +46,10 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
     this.props.router.push(`/invoices/${id}`);
   }
 
+  _onEdit = (id) => {
+    this.props.router.push(`/invoices/${id}/edit`);
+  }
+
   _onCharge = () => {
     this.dp.openDialog();
   }
@@ -79,6 +83,7 @@ class InvoicePage extends React.PureComponent { // eslint-disable-line react/pre
             data={selectedInvoice}
             onCharge={this._onCharge}
             onView={this._onView}
+            onEdit={this._onEdit}
             onDownload={this._onDownload}
           />
         </div>

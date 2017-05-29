@@ -13,21 +13,21 @@ import InvoiceDetailForm from '../../components/Invoice/InvoiceDetailForm';
 import InvoiceTotalForm from '../../components/Invoice/InvoiceTotalForm';
 import InvoiceItemsForm from '../../components/Invoice/InvoiceItemsForm';
 import { loadClients } from '../Client/actions';
-import { changeInputInvoice, addItemInvoice, changeAmountItem, changeDetailItem, addInvoice, deleteItem as removeItem, initInvoice, clearSelected } from './actions';
+import { changeInputInvoice, addItemInvoice, changeAmountItem, changeDetailItem, addInvoice, deleteItem as removeItem, initInvoice, clearSelected, loadInvoice } from './actions';
 import { selectSelectedClient, selectClients } from '../Client/selectors';
 import { selectSelectedInvoice } from './selectors';
 
 import './InvoiceNewContainer.scss';
 
-class NewInvoice extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class EditInvoice extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   state = {
     selectedClient: null,
   }
 
   componentWillMount() {
-    this.props.fetchClients();
-    this.props.initInvoice();
+    console.log(this.props.params.id);
+    this.props.fetchInvoice(this.props.params.id);
   }
 
   componentWillUnmount() {
@@ -116,7 +116,7 @@ class NewInvoice extends React.PureComponent { // eslint-disable-line react/pref
   }
 }
 
-NewInvoice.propTypes = {
+EditInvoice.propTypes = {
   fetchClients: React.PropTypes.func,
   addItem: React.PropTypes.func,
   deleteItem: React.PropTypes.func,
@@ -137,6 +137,9 @@ NewInvoice.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
+    fetchInvoice: (id) => {
+      dispatch(loadInvoice(id));
+    },
     fetchClients: () => {
       dispatch(loadClients());
     },
@@ -185,4 +188,4 @@ const mapStateToProps = createStructuredSelector({
   invoice: selectSelectedInvoice(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewInvoice);
+export default connect(mapStateToProps, mapDispatchToProps)(EditInvoice);
